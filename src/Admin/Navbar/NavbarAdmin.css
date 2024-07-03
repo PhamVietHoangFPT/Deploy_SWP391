@@ -1,0 +1,44 @@
+#navbarAdminContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    width: auto;
+}
+
+.listNavAdmin a,
+.Element {
+    color: white;
+    text-decoration: none;
+    font-size: calc(0.8vw + 01vh);
+}
+
+.listNavAdmin {
+    padding-bottom: 10px;
+}
+
+#childrenOfList {
+    margin-left: 25px;
+}
+
+#childrenOfList>li {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.list {
+    margin-bottom: 10px;
+    transition: opacity 0.5s ease;
+    visibility: visible;
+    opacity: 0;
+
+}
+
+.list.hidden {
+    /* visibility: hidden; */
+    opacity: 1;
+}
+
+.LinkNav:hover {
+    color: #646cffaa;
+}
