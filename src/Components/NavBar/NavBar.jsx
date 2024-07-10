@@ -89,11 +89,11 @@ export default function Navbar() {
 	const categorySubmenu = (
 		<>
 			{categories.map((category, index) => (
-				<Menu.Item key={index} style={{
+				<Menu.Item key={`category-${index}`} style={{
 					...paddingStyle,
 					borderBottom: '1px solid #fff',
 				}}>
-					<Button onClick={() => goToCategory(category.id)} sx={buttonStyle}>{category.name}</Button>
+					<Button onClick={() => goToCategory(category.id)} sx={buttonStyle}>{category.name} {category.group.name}</Button>
 				</Menu.Item>
 			))}
 		</>
@@ -102,7 +102,7 @@ export default function Navbar() {
 	const collectionsSubmenu = (
 		<>
 			{collections.map((collection, index) => (
-				<Menu.Item key={index} style={{
+				<Menu.Item key={`collection-${index}`} style={{
 					...paddingStyle,
 					borderBottom: '1px solid #fff',
 				}}>
@@ -147,7 +147,9 @@ export default function Navbar() {
 					</Menu.SubMenu>
 				</Menu.SubMenu>
 				<Menu.Item style={paddingStyle}>
-					<Button onClick={() => navigate('/cart')} sx={buttonStyle}><ShoppingCartIcon ></ShoppingCartIcon></Button>
+					<Button onClick={() => navigate('/cart')} sx={buttonStyle}>
+						<ShoppingCartIcon ></ShoppingCartIcon>
+					</Button>
 				</Menu.Item>
 				{token ? (
 					<>

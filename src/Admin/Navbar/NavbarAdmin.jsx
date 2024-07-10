@@ -50,6 +50,18 @@ export default function NavbarAdmin() {
 		navigate('/admin/collections')
 	}
 
+	function goToType() {
+		navigate('/admin/type')
+	}
+
+	function goToOrder() {
+		navigate('/admin/order')
+	}
+
+	function goToPayment() {
+		navigate('/admin/payment')
+	}
+
 	const buttonStyle = {
 		color: '#fff',
 		width: '-webkit-fill-available',
@@ -73,9 +85,6 @@ export default function NavbarAdmin() {
 				Height: '-webkit-fill-available',
 				width: '10%',
 			}}>
-				<Menu.Item style={paddingStyle}>
-					<Button onClick={goToHome} sx={buttonStyle}>Home</Button>
-				</Menu.Item>
 				<Menu.Item style={paddingStyle}>
 					<Button onClick={goToAdmin} sx={buttonStyle}>Admin</Button>
 				</Menu.Item >
@@ -104,8 +113,19 @@ export default function NavbarAdmin() {
 						<Menu.Item style={paddingStyle}>
 							<Button onClick={goToWarranty} sx={buttonStyle}>Warranty</Button>
 						</Menu.Item>
+						<Menu.Item style={paddingStyle}>
+							<Button onClick={goToType} sx={buttonStyle}>Type</Button>
+						</Menu.Item>
+						<Menu.Item style={paddingStyle}>
+							<Button onClick={goToPayment} sx={buttonStyle}>Payment</Button>
+						</Menu.Item>
 					</>
 				)}
+				{role === '1' || role === '3' || role === '4' ? (
+					<Menu.Item style={paddingStyle}>
+						<Button onClick={goToOrder} sx={buttonStyle}>Order</Button>
+					</Menu.Item>
+				) : null}
 				<Menu.Item style={paddingStyle}>
 					<Button onClick={Logout} sx={{
 						color: '#fff',

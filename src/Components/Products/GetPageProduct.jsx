@@ -251,7 +251,7 @@ export default function GetPageProduct() {
                 {Category && Category.map((item, index) => (
                   <MenuItem key={index} value={item.id}>
                     <Checkbox checked={CategoryIds.indexOf(item.id) > -1} />
-                    <ListItemText primary={item.name} />
+                    <ListItemText primary={item.name + ' ' + item.group.name} />
                   </MenuItem>
                 ))}
               </Select>
@@ -295,7 +295,7 @@ export default function GetPageProduct() {
                 onChange={(e) => handleChangeDiamondId(e.target.value)}
                 input={<OutlinedInput label="Diamond" />}
                 renderValue={(selected) =>
-                  Category.filter(cat => selected.includes(cat.id)).map(cat => cat.name).join(', ')
+                  dataDiamond.filter(cat => selected.includes(cat.id)).map(cat => cat.name).join(', ')
                 }
               >
                 {dataDiamond && dataDiamond.map((item, index) => (

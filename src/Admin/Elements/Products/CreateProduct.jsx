@@ -155,6 +155,7 @@ export default function CreateProduct(props) {
       method: 'POST',
       headers: {
         'Accept': '*/*',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: formData
     });
@@ -172,7 +173,8 @@ export default function CreateProduct(props) {
       method: 'POST',
       headers: {
         'Accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(productProperties)
     })
@@ -347,7 +349,7 @@ export default function CreateProduct(props) {
                         MenuProps={MenuProps}
                       >
                         {dataCategory && dataCategory.map((item) => (
-                          <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+                          <MenuItem value={item.id} key={item.id}>{item.name} {item.group.name}</MenuItem>
                         ))}
                       </Field>
                       <ErrorMessage name="categoryId">

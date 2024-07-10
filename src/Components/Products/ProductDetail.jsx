@@ -56,7 +56,8 @@ export default function ProductDetail() {
     const body = {
       id: data.id,
       quantity: data.quantity,
-      totalPrice: data.totalPrice
+      totalPrice: data.totalPrice,
+      size: selectedSize,
     }
     const url = createApi('Cart/Create?check=true')
     const response = await fetch(url, {
@@ -305,9 +306,13 @@ export default function ProductDetail() {
                     Please login to add to cart
                   </h4>
                 )}
-                {responseStatus.toString().startsWith('2') && (
+                {responseStatus.toString().startsWith('2') ? (
                   <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
                     Add to cart successful
+                  </Alert>
+                ) : (
+                  <Alert severity="error">
+                    Add to cart failed
                   </Alert>
                 )}
               </FormControl>

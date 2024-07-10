@@ -44,7 +44,8 @@ export default function UpdateProduct(props) {
       fetch(url, {
         method: 'GET',
         headers: {
-          'Accept': '*/*'
+          'Accept': '*/*',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
       })
         .then(response => response.json())
@@ -158,6 +159,7 @@ export default function UpdateProduct(props) {
       method: 'PUT',
       headers: {
         'Accept': '*/*',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: formData
     }).then(response => {
@@ -173,7 +175,8 @@ export default function UpdateProduct(props) {
       method: 'PUT',
       headers: {
         'Accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(productProperties)
     }).then(response => {
@@ -331,7 +334,7 @@ export default function UpdateProduct(props) {
                         value={values.CollectionId}
                       >
                         {dataCollection && dataCollection.map((item) => (
-                          <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+                          <MenuItem value={item.id} key={item.id}>{item.name} </MenuItem>
                         ))}
                       </Field>
                     </FormControl>
@@ -352,7 +355,7 @@ export default function UpdateProduct(props) {
                         MenuProps={MenuProps}
                       >
                         {dataCategory && dataCategory.map((item) => (
-                          <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+                          <MenuItem value={item.id} key={item.id}>{item.name} {item.group.name}</MenuItem>
                         ))}
                       </Field>
                       <ErrorMessage name="categoryId">
