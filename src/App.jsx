@@ -28,6 +28,8 @@ import OrderAdmin from './Admin/Elements/Orders/OrderAdmin'
 import ShowAllPayment from './Admin/Elements/Payment/ShowAllPayment'
 import PaymentSuccessful from './Pages/PaymentSuccessful'
 import Certificate from './Admin/Elements/Certificate/Certificate'
+import PdfFileWarranty from './Pages/PdfFileWarranty'
+import PaymentFail from './Pages/DiamondPage'
 import { gapi } from 'gapi-script'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 export default function App() {
@@ -59,7 +61,10 @@ export default function App() {
             <Route path='/profile' element={<Profile></Profile>}></Route>
             <Route path='/order' element={<Order></Order>}></Route>
             <Route path='/payment/success' element={<PaymentSuccessful></PaymentSuccessful>}></Route>
+            <Route path='/payment/cancel' element={<PaymentFail></PaymentFail>}></Route>
           </Route>
+
+          <Route path='/pdfWarranty/:id' element={<PdfFileWarranty />}></Route>
 
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
