@@ -141,7 +141,8 @@ export default function Cart() {
     const data = {
       totalPrice: totalPriceCalculate,
       cartId: cartId,
-      address: values.address
+      address: values.address,
+      phoneNumber: values.phoneNumber
     }
     const url = createApi('Order/CreateOrder')
     fetch(url, {
