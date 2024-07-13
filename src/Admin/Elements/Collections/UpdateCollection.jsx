@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { createApi } from '../../../Auth/AuthFunction'
 
 export default function UpdateCollection(props) {
+  console.log(props.id)
   const [open, setOpen] = useState(false)
   const [displayStatus, setDisplayStatus] = useState(false)
   const [responseCode, setResponseCode] = useState('')
@@ -35,7 +36,7 @@ export default function UpdateCollection(props) {
   }
 
   const Update = (values) => {
-    const url = createApi(`Collection/UpdateCollection/'${props.id}`)
+    const url = createApi(`Collection/UpdateCollection/${props.id}`)
     const data = {
       "name": values.name,
     }
