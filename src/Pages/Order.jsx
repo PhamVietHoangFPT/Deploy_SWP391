@@ -129,7 +129,7 @@ export default function Order() {
       })
   }
 
-  const headerTable = ['#', 'Order date', 'Total price', 'Quantity']
+  const headerTable = ['#', 'Order date', 'Total price', 'Status', 'Phone', 'Address', '']
   const headerTableDetail = ['Image', 'Name', 'Total price', 'Quantity']
 
 
@@ -193,6 +193,12 @@ export default function Order() {
                         color={item.status === 'Approved' ? 'success' : item.status === 'Wait To Approve' ? 'error' : item.status === 'Paid' ? 'primary' : 'warning'}>
                         {item.status}
                       </Button>
+                    </TableCell>
+                    <TableCell>
+                      {item.phone}
+                    </TableCell>
+                    <TableCell>
+                      {item.address}
                     </TableCell>
                     <TableCell>
                       {item.status === 'Approved' ?
