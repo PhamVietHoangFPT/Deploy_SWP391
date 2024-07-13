@@ -129,8 +129,8 @@ export default function Order() {
       })
   }
 
-  const headerTable = ['#', 'Order date', 'Total price', 'Status']
-  const headerTableDetail = ['Image', 'Name', 'Quantity', 'Total price']
+  const headerTable = ['#', 'Order date', 'Total price', 'Quantity']
+  const headerTableDetail = ['Image', 'Name', 'Total price', 'Quantity']
 
 
   return (
