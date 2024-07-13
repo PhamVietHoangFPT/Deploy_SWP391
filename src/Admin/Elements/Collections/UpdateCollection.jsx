@@ -148,11 +148,11 @@ export default function UpdateCollection(props) {
             <>
               {
                 String(responseCode).startsWith('2') && String(responseCode).startsWith('2') &&
-                <Alert severity="success" variant="filled">Update Diamond Case successfully</Alert>
+                <Alert severity="success" variant="filled">Update Collection successfully</Alert>
               }
               {
                 !String(responseCode).startsWith('2') &&
-                <Alert severity="error" variant="filled">Update Diamond Case failed</Alert>
+                <Alert severity="error" variant="filled"> Update Collection failed</Alert>
               }
             </>
           )}

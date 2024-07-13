@@ -104,10 +104,17 @@ export default function UpdateDiamond(props) {
   })
 
   const initialValues = {
-
+    origin: item.origin,
+    color: item.color,
+    caratWeight: item.caratWeight,
+    clarity: item.clarity,
+    cut: item.cut,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
   }
   const onSubmit = (values) => {
-
+    Update(values)
   }
 
   return (
@@ -175,6 +182,7 @@ export default function UpdateDiamond(props) {
                   ))}
                 </Grid>
               )}
+              <></>
               <h3>
                 New images
               </h3>
