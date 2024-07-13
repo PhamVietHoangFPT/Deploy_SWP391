@@ -18,10 +18,18 @@ export default function Cart() {
   const [triggerRead, setTriggerRead] = useState(false)
   const token = localStorage.getItem('token')
   const dataTableHead = ['#', 'Product', 'Price', 'Quantity', 'Total amount', '']
-  const userDetail = jwtDecode(localStorage.getItem('token'))
+  const [userDetail, setUserDetail] = useState(null)
+  const [id, setId] = useState(null)
+  useEffect(() => {
+    if (token === null) {
+      navigate('/login')
+    } else {
+      setUserDetail(jwtDecode(localStorage.getItem('token')))
+      setId(jwtDecode(localStorage.getItem('token')).Id)
+    }
+  }, [token])
   const [dataUser, setDataUser] = useState(null)
 
-  const id = userDetail.Id
   useEffect(() => {
     const getUserData = (id) => {
       const url = createApi(`Account/GetAccountById/${id}`)
@@ -142,7 +150,7 @@ export default function Cart() {
       totalPrice: totalPriceCalculate,
       cartId: cartId,
       address: values.address,
-      phoneNumber: values.phoneNumber
+      phone: values.phoneNumber,
     }
     const url = createApi('Order/CreateOrder')
     fetch(url, {
@@ -404,7 +412,7 @@ export default function Cart() {
                                   setFieldValue('totalPrice', totalPriceCalculate)
                                   setFieldValue('phoneNumber', dataUser?.phoneNumber)
                                   setFieldValue('address', dataUser?.address)
-                                }, [id])
+                                }, [dataUser])
                                 return (
                                   <Form>
                                     <div className='row'>
@@ -439,7 +447,6 @@ export default function Cart() {
                                         <ErrorMessage name="address" >
                                           {msg => <Alert severity="error">{msg}</Alert>}
                                         </ErrorMessage>
-
                                       </div>
                                     </div>
                                     <div>

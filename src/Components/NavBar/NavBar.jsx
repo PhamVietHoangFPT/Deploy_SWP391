@@ -9,6 +9,7 @@ import { Menu, } from 'antd'
 import { LogoutByButton } from '../../Auth/AuthFunction'
 import { jwtDecode } from 'jwt-decode'
 import { createApi } from '../../Auth/AuthFunction';
+import Footer from '../Footer/Footer';
 export default function Navbar() {
 	const [categories, setCategories] = useState([])
 	const [token, setToken] = useState(null)
@@ -93,7 +94,7 @@ export default function Navbar() {
 					...paddingStyle,
 					borderBottom: '1px solid #fff',
 				}}>
-					<Button onClick={() => goToCategory(category.id)} sx={buttonStyle}>{category.name} {category.group.name}</Button>
+					<Button onClick={() => goToCategory(category.id)} sx={buttonStyle}>{category.name}</Button>
 				</Menu.Item>
 			))}
 		</>
@@ -153,16 +154,29 @@ export default function Navbar() {
 				</Menu.Item>
 				{token ? (
 					<>
-						<Menu.Item key="navigate" style={paddingStyle}>
-							<Button onClick={() => navigate(role >= '1' && role <= '4' ? '/admin' : '/profile')} sx={buttonStyle}>
-								{role === '5' && 'Profile'}
-							</Button>
-						</Menu.Item>
-						<Menu.Item key="order" style={paddingStyle}>
-							<Button onClick={() => navigate('/order')} sx={buttonStyle}>
-								Order
-							</Button>
-						</Menu.Item>
+						<Menu.SubMenu key="navigate" style={{
+							...paddingStyle,
+							backgroundColor: '#001529',
+						}} title={<Button sx={buttonStyle}>{decodedToken.Name}</Button>}>
+							<Menu.Item style={{
+								backgroundColor: '#001529',
+							}}>
+								<Button sx={{
+									...buttonStyle,
+
+								}} onClick={() => navigate(role >= '1' && role <= '4' ? '/admin' : '/profile')} >
+									View Profile
+								</Button>
+							</Menu.Item>
+							<Menu.Item style={{
+								backgroundColor: '#001529',
+							}}>
+								<Button sx={buttonStyle} onClick={() => navigate('/order')} >
+									View Order
+								</Button>
+							</Menu.Item>
+						</Menu.SubMenu>
+
 						<Menu.Item key="logout" style={paddingStyle}>
 							<Button onClick={Logout} sx={{
 								color: '#fff',
@@ -177,9 +191,7 @@ export default function Navbar() {
 				)}
 			</Menu>
 			<Outlet />
-			<h1>
-				Footer will go here in navbar.jsx
-			</h1>
+			<Footer></Footer>
 		</div>
 	)
 }
