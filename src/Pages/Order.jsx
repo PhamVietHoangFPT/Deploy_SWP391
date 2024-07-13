@@ -269,8 +269,8 @@ export default function Order() {
                         }} />
                       </TableCell>
                       <TableCell>{item.cart.product ? (item.cart.product.name) : (item.cart.diamond.name)}</TableCell>
-                      <TableCell>{item.cart.quantity}</TableCell>
                       <TableCell>${item.cart.totalPrice.toLocaleString()}</TableCell>
+                      <TableCell>{item.cart.quantity}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
