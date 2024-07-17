@@ -188,7 +188,7 @@ export default function Order() {
                       {new Date(item.createdDate).toLocaleDateString('en-GB')}
                     </TableCell>
                     <TableCell>
-                      {item.totalPrice}
+                      ${item.totalPrice.toLocaleString()}
                     </TableCell>
                     <TableCell>
                       <Button variant="contained"

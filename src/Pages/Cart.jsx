@@ -109,53 +109,53 @@ export default function Cart() {
   }
 
   const handleDecrease = debounce(async (id) => {
-    const url = createApi(`Cart/Update/${id}?check=false`);
-    fetch(url, {
+    const url = createApi(`Cart/Update/${id}?check=false`)
+    await fetch(url, {
       method: 'PUT',
       headers: {
         'Accept': '*/*',
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    setTriggerRead(prev => !prev);
-  }, 1000);
+    setTriggerRead(prev => !prev)
+  }, 300)
 
   const handleDeleteCart = debounce(async (id) => {
-    const url = createApi(`Cart/Delete/${id}`);
-    fetch(url, {
+    const url = createApi(`Cart/Delete/${id}`)
+    await fetch(url, {
       method: 'DELETE',
       headers: {
         'Accept': '*/*',
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
-    });
-    setTriggerRead(prev => !prev);
-  }, 1000);
+    })
+    setTriggerRead(prev => !prev)
+  }, 300)
 
   const handleIncrease = debounce(async (id) => {
-    const url = createApi(`Cart/Update/${id}?check=true`);
-    fetch(url, {
+    const url = createApi(`Cart/Update/${id}?check=true`)
+    await fetch(url, {
       method: 'PUT',
       headers: {
         'Accept': '*/*',
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    setTriggerRead(prev => !prev);
-  }, 1000);
+    setTriggerRead(prev => !prev)
+  }, 300)
 
   useEffect(() => {
     const calculatePrice = () => {
       let total = 0
-      cart.map((item) => {
+      cart.forEach((item) => {
         total += item.totalPrice
-        setTotalPriceCalculate(total)
       })
+      setTotalPriceCalculate(total)
     }
     calculatePrice()
-  }, [cart])
-
-  const confirmOrder = (values) => {
+  }, [cart, triggerRead])
+  
+  const confirmOrder = async (values) => {
     const data = {
       totalPrice: totalPriceCalculate,
       cartId: cartId,
@@ -163,15 +163,19 @@ export default function Cart() {
       phone: values.phoneNumber,
     }
     const url = createApi('Order/CreateOrder')
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(data)
-    })
-      .then(navigate('/order'))
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(data)
+      })
+      navigate('/order')
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error)
+    }
   }
 
   const initialValues = {

@@ -40,6 +40,14 @@ export default function ShowAllProduct() {
     setTriggerRead(prev => !prev)
   }
 
+  const handleChangeStatus = (value) => {
+    setCategoryIds(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    setTriggerRead(prev => !prev)
+  }
+
   useEffect(() => {
     function ReadData() {
       let queryString = new URLSearchParams()
@@ -93,7 +101,6 @@ export default function ShowAllProduct() {
                   </TableHead>
                   <TableBody>
                     {data && data.map((item, index) => (
-
                       <TableRow key={index}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>
