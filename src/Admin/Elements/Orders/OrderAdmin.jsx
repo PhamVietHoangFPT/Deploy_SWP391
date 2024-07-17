@@ -148,7 +148,9 @@ export default function OrderAdmin() {
           marginBottom: '20px',
         }}>
           <h2>Order</h2>
-          <FormControl >
+          <FormControl sx={{
+            minWidth: 240,
+          }}>
             <InputLabel>
               Status
             </InputLabel>
@@ -158,9 +160,6 @@ export default function OrderAdmin() {
               value={status.map(cat => cat)}
               onChange={(e) => handleChangeStatus(e.target.value)}
               input={<OutlinedInput label="Status" />}
-              renderValue={(selected) =>
-                status.map(cat => cat).join(', ')
-              }
             >
               {statusChoice && statusChoice.map((item, index) => (
                 <MenuItem key={index} value={item}>
