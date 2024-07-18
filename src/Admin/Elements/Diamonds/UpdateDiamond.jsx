@@ -341,7 +341,7 @@ export default function UpdateDiamond(props) {
                           margin: '5px',
                           width: '100px',
                         }}>
-                        Send
+                        Save
                       </Button>
                       <Button type="button"
                         value="Clear" onClick={handleClose}

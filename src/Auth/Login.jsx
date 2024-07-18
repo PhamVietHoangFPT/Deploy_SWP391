@@ -181,10 +181,14 @@ export default function Login() {
                 {
                   responseStatus === 500 && <Alert severity="error" sx={styleAlert}>{error}</Alert>
                 }
+                {
+                  responseStatus.toString().startsWith('4') && <Alert severity="error" sx={styleAlert}>{error}</Alert>
+                }
                 <FormControl>
                   <div className='row'>
                     <div className='col-12'>
                       <Field
+                        fullWidth
                         as={TextField}
                         type="text"
                         name="email"
@@ -198,6 +202,7 @@ export default function Login() {
                     </div>
                     <div className='col-12'>
                       <Field
+                        fullWidth
                         as={TextField}
                         type="password"
                         name="password"

@@ -5,7 +5,7 @@ import {
   TableContainer, Table, TableHead, TableBody,
   TableCell, TableRow, Button, Modal,
   Box, Stack, Pagination, FormControl, InputLabel,
-  Select, OutlinedInput, MenuItem, Checkbox,
+  Select, OutlinedInput, MenuItem,
   ListItemText
 } from '@mui/material'
 
@@ -24,7 +24,7 @@ export default function OrderAdmin() {
     pageSize: PageSize,
     ...(status != null && { status: status }),
   }
-  console.log(status)
+
   const handleOpen = (id) => {
     setIdOrder(id)
     setOpen(true)
@@ -48,11 +48,18 @@ export default function OrderAdmin() {
     },
   }
 
+  const statusColor = {
+    'Wait To Approve': '#7b818a',
+    'Approved': '#64d9ff',
+    'Paid': '#00e200',
+    'In Transit': '#f9d800',
+    'Finished': '#ffb03d',
+    'Cancelled': '#ff2a04'
+  };
+
   const handleChangeStatus = (value) => {
-    setStatus(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setStatus(value)
+    setPageNumber(1)
     setTriggerRead(prev => !prev)
   }
 
@@ -73,7 +80,6 @@ export default function OrderAdmin() {
         }
       });
       const url = createApi(`Order/Get?${queryString.toString()}`)
-      console.log(url)
       fetch(url, {
         method: 'GET',
         headers: {
@@ -136,7 +142,6 @@ export default function OrderAdmin() {
   const headerTable = ['Order ID', 'Order Date', 'Customer Name', 'Order Status', 'Order Total', 'Phone', 'Address', 'Detail', '']
   const headerTableDetail = ['Image', 'Product Name', 'Quantity', 'Price']
 
-  console.log(dataOrder)
   return (
     <div className='contentAdminContainer'>
       <div className='CRUDContainer '>
@@ -157,7 +162,7 @@ export default function OrderAdmin() {
             <Select
               label="Status"
               MenuProps={MenuProps}
-              value={status.map(cat => cat)}
+              value={status}
               onChange={(e) => handleChangeStatus(e.target.value)}
               input={<OutlinedInput label="Status" />}
             >
@@ -201,7 +206,12 @@ export default function OrderAdmin() {
                           marginRight: '20px'
                         }}>
                           <Button variant="contained"
-                            color={order.status === 'Approved' ? 'success' : order.status === 'Wait To Approve' ? 'error' : order.status === 'Paid' ? 'primary' : 'warning'}>
+                            sx={{
+                              backgroundColor: statusColor[order.status] || 'black',
+                              '&:hover': {
+                                backgroundColor: statusColor[order.status] || 'black',
+                              }
+                            }}>
                             {order.status}
                           </Button>
                         </div>

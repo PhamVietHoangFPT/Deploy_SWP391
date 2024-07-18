@@ -145,22 +145,20 @@ export default function UpdateDiamondCase(props) {
                     type="submit"
                     className='submitButton'
                     value="Submit" variant="contained"
-                    size="large" endIcon={<SendIcon />}
                     sx={{
                       margin: '5px',
                     }}
                   >
-                    Send
+                    save
                   </Button>
                   <Button type="button"
                     value="Clear" onClick={handleClose}
                     className='submitButton'
                     variant="contained" size="large" color="error"
-                    endIcon={<CloseIcon />}
                     sx={{
                       margin: '5px',
                     }}>
-                    Close
+                    Cancel
                   </Button>
                 </div>
               </Form>

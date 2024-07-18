@@ -12,7 +12,7 @@ import { createApi } from '../../Auth/AuthFunction'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function GetPageDiamond() {
   const { PageNumberFromURL } = useParams()
-  const [PageNumber, setPageNumber] = useState(PageNumberFromURL && parseInt(PageNumberFromURL))
+  const [PageNumber, setPageNumber] = useState(1)
   const [PageSize, setPageSize] = useState(12)
   const [StartPrice, setStartPrice] = useState(null)
   const [EndPrice, setEndPrice] = useState(null)
@@ -117,7 +117,10 @@ export default function GetPageDiamond() {
 
   const styleSlider = {
     color: '#04376a',
-    width: '400px',
+    width: '20vw',
+    '@media (max-width: 1200px)': {
+      width: '80vw',
+    },
     '& .MuiSlider-thumb': {
       height: 18,
       width: 18,
@@ -284,7 +287,7 @@ export default function GetPageDiamond() {
             </h3>
           </Grid>
           <Grid>
-            <Box width={420} sx={{ padding: 0 }}>
+            <Box sx={{ padding: 0 }}>
               <Slider
                 min={0.1}
                 max={10.2}
@@ -314,7 +317,7 @@ export default function GetPageDiamond() {
             </h3>
           </Grid>
           <Grid>
-            <Box width={420} sx={{ padding: 0 }}>
+            <Box sx={{ padding: 0 }}>
               <Slider
                 min={0}
                 max={dataColors.length - 1}
@@ -337,7 +340,7 @@ export default function GetPageDiamond() {
             }}>Clarity</h3>
           </Grid>
           <Grid>
-            <Box width={420} sx={{ padding: 0 }}>
+            <Box sx={{ padding: 0 }}>
               <Slider
                 min={0}
                 max={dataClarity.length - 1}
@@ -360,7 +363,7 @@ export default function GetPageDiamond() {
             }}>Cut</h3>
           </Grid>
           <Grid>
-            <Box width={420} sx={{
+            <Box sx={{
               padding: 0
             }}>
               <Slider

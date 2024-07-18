@@ -44,9 +44,9 @@ export default function CreateDiamondCase(props) {
 			})
 	}
 	const validationSchema = Yup.object({
-		name: Yup.string().required('Required'),
-		color: Yup.string().required('Required'),
-		material: Yup.string().required('Required')
+		name: Yup.string().required('Name required'),
+		color: Yup.string().required('Color required'),
+		material: Yup.string().required('Material required')
 	})
 
 	const initialValues = {
@@ -146,21 +146,20 @@ export default function CreateDiamondCase(props) {
 										type="submit"
 										className='submitButton'
 										value="Submit" variant="contained"
-										size="large" endIcon={<SendIcon />}
+										size="large"
 										sx={{
 											margin: '5px',
 										}}>
-										Send
+										Save
 									</Button>
 									<Button type="button"
 										value="Clear" onClick={handleClose}
 										className='submitButton'
 										variant="contained" size="large" color="error"
-										endIcon={<CloseIcon />}
 										sx={{
 											margin: '5px',
 										}}>
-										Close
+										cancel
 									</Button>
 								</div>
 							</Form>

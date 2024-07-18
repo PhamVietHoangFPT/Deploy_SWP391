@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import { createApi } from '../Auth/AuthFunction'
 import { Button, Modal, Box, TableRow, TableCell, TableBody, TableHead, Table, TableContainer, Paper, Container } from '@mui/material'
+import {
+  Stack, Pagination, FormControl, InputLabel,
+  Select, OutlinedInput, MenuItem,
+  ListItemText
+} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined'
 import { jwtDecode } from 'jwt-decode'
@@ -19,7 +24,32 @@ export default function Order() {
   const [paymentId, setPaymentId] = useState()
   const userData = jwtDecode(localStorage.getItem('token'))
   const userId = userData.Id
+  const [triggerRead, setTriggerRead] = useState(false)
+  const [PageNumber, setPageNumber] = useState(1)
+  const [PageSize, setPageSize] = useState(10)
+  const [TotalPage, setTotalPage] = useState(null)
+  const [statusSearch, setStatusSearch] = useState([])
+  const statusChoice = ['Wait To Approve', 'Approved', 'Paid', 'In Transit', 'Finished', 'Cancelled']
+  const params = {
+    pageIndex: PageNumber,
+    pageSize: PageSize,
+    ...(statusSearch != null && { status: statusSearch }),
+  }
 
+  const handleChangeStatusSearch = (value) => {
+    setStatusSearch(value)
+    setTriggerRead(prev => !prev)
+  }
+
+  const ITEM_HEIGHT = 120
+  const ITEM_PADDING_TOP = 8
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      },
+    },
+  }
   const handleOpen = (id) => {
     setOpenPayment(true)
     getOrderDetail(id)
@@ -60,6 +90,12 @@ export default function Order() {
         window.open(data.url, '_blank').focus()
       })
   }
+
+  const handlePageChange = (event, value) => {
+    setPageNumber(value)
+    setTriggerRead(prev => !prev)
+  }
+
   const styleOrderContainer = {
     display: 'flex',
     flexDirection: 'column',
@@ -85,7 +121,15 @@ export default function Order() {
 
   useEffect(() => {
     const getOrder = () => {
-      const url = createApi('Order/Get')
+      let queryString = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) => {
+        if (Array.isArray(value)) { // Check if value is an array
+          value.forEach((item) => queryString.append(key, item));
+        } else {
+          queryString.append(key, value);
+        }
+      });
+      const url = createApi(`Order/Get?${queryString.toString()}`)
       fetch(url, {
         method: 'GET',
         headers: {
@@ -95,10 +139,11 @@ export default function Order() {
       }).then(response => response.json())
         .then(data => {
           setOrder(data)
+          setTotalPage(Math.ceil(data.totalItemsCount / PageSize))
         })
     }
     getOrder()
-  }, [])
+  }, [triggerRead])
 
   const getOrderDetail = (id) => {
     const url = createApi(`Order/GetProductDetailById/${id}`);
@@ -131,8 +176,14 @@ export default function Order() {
 
   const headerTable = ['#', 'Order date', 'Total price', 'Status', 'Phone', 'Address', '']
   const headerTableDetail = ['Image', 'Name', 'Total price', 'Quantity']
-
-
+  const statusColor = {
+    'Wait To Approve': '#7b818a',
+    'Approved': '#64d9ff',
+    'Paid': '#00e200',
+    'In Transit': '#f9d800',
+    'Finished': '#ffb03d',
+    'Cancelled': '#ff2a04'
+  };
   return (
     <div style={{
       background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
@@ -157,6 +208,25 @@ export default function Order() {
           <h1>Order</h1>
         </div>
         <div style={styleOrderContainer}>
+          <FormControl sx={{
+            width: '100%',
+            marginBottom: '20px',
+          }}>
+            <InputLabel>Status</InputLabel>
+            <Select
+              label="Status"
+              MenuProps={MenuProps}
+              value={statusSearch}
+              onChange={(e) => handleChangeStatusSearch(e.target.value)}
+              input={<OutlinedInput label="Status" />}
+            >
+              {statusChoice.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TableContainer component={Paper} fullWidth>
             <Table >
               <TableHead sx={{
@@ -177,10 +247,8 @@ export default function Order() {
               <TableBody sx={{
                 width: '100%'
               }}>
-
-                {order && order.sort((a, b) => a.status.localeCompare(b.status)).map((item, index) => (
+                {order.items && order.items.map((item, index) => (
                   <TableRow key={item.id}>
-                    {console.log(item.id)}
                     <TableCell>
                       {index + 1}
                     </TableCell>
@@ -192,7 +260,12 @@ export default function Order() {
                     </TableCell>
                     <TableCell>
                       <Button variant="contained"
-                        color={item.status === 'Approved' ? 'success' : item.status === 'Wait To Approve' ? 'error' : item.status === 'Paid' ? 'primary' : 'warning'}>
+                        sx={{
+                          backgroundColor: statusColor[item.status] || 'yellow',
+                          '&:hover': {
+                            backgroundColor: statusColor[item.status] || 'yellow',
+                          }
+                        }}>
                         {item.status}
                       </Button>
                     </TableCell>
@@ -224,6 +297,13 @@ export default function Order() {
                 ))}
               </TableBody>
             </Table>
+            <Stack sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <Pagination count={TotalPage} page={PageNumber} onChange={handlePageChange} />
+            </Stack>
           </TableContainer>
         </div>
 
