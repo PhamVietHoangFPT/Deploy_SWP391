@@ -15,14 +15,14 @@ export default function OrderAdmin() {
   const [PageNumber, setPageNumber] = useState(1)
   const [PageSize, setPageSize] = useState(10)
   const [TotalPage, setTotalPage] = useState(null)
-  const [status, setStatus] = useState([])
+  const [status, setStatus] = useState('Default')
   const [orderDetail, setOrderDetail] = useState([])
   const [idOrder, setIdOrder] = useState(null)
   const [open, setOpen] = useState(false)
   const params = {
     pageIndex: PageNumber,
     pageSize: PageSize,
-    ...(status != null && { status: status }),
+    ...(status !== 'Default' && { status: status }),
   }
 
   const handleOpen = (id) => {
@@ -36,7 +36,7 @@ export default function OrderAdmin() {
     setOrderDetail([])
   }
   const role = localStorage.getItem('role')
-  const statusChoice = ['Wait To Approve', 'Approved', 'Paid', 'In Transit', 'Finished', 'Cancelled']
+  const statusChoice = ['Wait To Approve', 'Approved', 'Paid', 'In Transit', 'Finished', 'Cancelled', 'Default']
   const navigate = useNavigate()
   const ITEM_HEIGHT = 120
   const ITEM_PADDING_TOP = 8
@@ -50,9 +50,9 @@ export default function OrderAdmin() {
 
   const statusColor = {
     'Wait To Approve': '#7b818a',
-    'Approved': '#64d9ff',
+    'Approved': '#050A30',
     'Paid': '#00e200',
-    'In Transit': '#f9d800',
+    'In Transit': '#1616FF',
     'Finished': '#ffb03d',
     'Cancelled': '#ff2a04'
   };
@@ -126,8 +126,8 @@ export default function OrderAdmin() {
     createStatus(id, 'Finished')
   }
 
-  const cancelButton = (id) => {
-
+  const inTransitButton = (id) => {
+    createStatus(id, 'In Transit')
   }
 
   const approveButton = (id) => {
@@ -230,15 +230,22 @@ export default function OrderAdmin() {
                       </Button>
                     </TableCell>
                     <TableCell>
-                      {(order.status === 'Wait To Approved') && (
+                      {(order.status === 'Wait To Approve') && (
                         <div>
                           <Button variant="contained" onClick={() => approveButton(order.id)}>Approve</Button>
                         </div>
                       )}
-                      {(order.status === 'Approve') && (
+                      {(order.status === 'Paid') && (
                         <div>
-                          <Button variant="contained" color='error' onClick={() => cancelButton(order.id)}>
-                            Cancel
+                          <Button variant="contained" color='secondary' onClick={() => inTransitButton(order.id)}>
+                            In Transit
+                          </Button>
+                        </div>
+                      )}
+                      {(order.status === 'In Transit') && (
+                        <div>
+                          <Button variant="contained" color='warning' onClick={() => finishButton(order.id)}>
+                            Finished
                           </Button>
                         </div>
                       )}
@@ -272,8 +279,8 @@ export default function OrderAdmin() {
             boxShadow: 24,
             p: 4,
             overflow: 'auto',
-            height: '100vh',
-            width: '100vw',
+            width: '50%',
+            height: '50%',
           }}>
             <div>
               <h3>Order ID: {idOrder}</h3>

@@ -300,9 +300,9 @@ export default function UpdateProduct(props) {
           transform: 'translate(-50%, -50%)',
           bgcolor: 'background.paper',
           p: 4,
-          overflowY: 'auto',
+          overflow: 'auto',
           height: '70vh',
-          width: 'auto',
+          width: '70%',
         }}>
           <h3 className='titleOfForm'>UPDATE PRODUCT</h3>
           <Formik

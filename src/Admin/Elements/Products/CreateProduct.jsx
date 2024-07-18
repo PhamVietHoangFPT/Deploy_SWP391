@@ -34,6 +34,10 @@ export default function CreateProduct(props) {
   const handleClose = () => {
     setOpen(false)
     setWaiting(false)
+    setImage([])
+    setPriceExtraPart(0)
+    setPriceMainPart(0)
+    setPriceWage(0)
   }
 
   const handleDisplay = () => {
@@ -201,9 +205,7 @@ export default function CreateProduct(props) {
     diamonds: Yup.array().of(
       Yup.object().shape({
         diamondId: Yup.number()
-          .required('Size is required')
-          .positive('Size must be positive')
-          .integer('Size must be an integer'),
+          .required('Diamond is required'),
         isMain: Yup.bool()
           .required('Type is required'),
       })
@@ -278,8 +280,8 @@ export default function CreateProduct(props) {
           boxShadow: 24,
           p: 4,
           overflow: 'auto',
-          height: 'auto',
-          width: 'auto',
+          maxHeight: '70%',
+          width: '70%',
         }}>
           <h3 className='titleOfForm'>CREATE PRODUCT</h3>
           <Formik

@@ -71,6 +71,8 @@ export default function Order() {
   const handleCloseDetail = (id) => {
     setOpenDetail(false)
     setWarrantyId(null)
+    setWarranty([])
+    setOpenWarranty(false)
   }
 
   const handleOpenWarranty = () => {
@@ -174,6 +176,8 @@ export default function Order() {
       })
   }
 
+  console.log(warranty)
+
   const headerTable = ['#', 'Order date', 'Total price', 'Status', 'Phone', 'Address', '']
   const headerTableDetail = ['Image', 'Name', 'Total price', 'Quantity']
   const statusColor = {
@@ -247,6 +251,7 @@ export default function Order() {
               <TableBody sx={{
                 width: '100%'
               }}>
+
                 {order.items && order.items.map((item, index) => (
                   <TableRow key={item.id}>
                     <TableCell>
@@ -261,9 +266,9 @@ export default function Order() {
                     <TableCell>
                       <Button variant="contained"
                         sx={{
-                          backgroundColor: statusColor[item.status] || 'yellow',
+                          backgroundColor: statusColor[item.status] || 'black',
                           '&:hover': {
-                            backgroundColor: statusColor[item.status] || 'yellow',
+                            backgroundColor: statusColor[item.status] || 'black',
                           }
                         }}>
                         {item.status}
@@ -335,7 +340,7 @@ export default function Order() {
                   <TableRow sx={{
                     backgroundColor: '#001529',
                   }}>
-                    {headerTable.map((item, index) => (
+                    {headerTableDetail.map((item, index) => (
                       <TableCell key={index} sx={{
                         color: '#fff',
                         fontWeight: 'bold',
@@ -358,7 +363,7 @@ export default function Order() {
                       </TableCell>
                       <TableCell>{item.cart.product ? (item.cart.product.name) : (item.cart.diamond.name)}</TableCell>
                       <TableCell>${item.cart.totalPrice.toLocaleString()}</TableCell>
-                      <TableCell>{item.cart.quantity}</TableCell>
+                      <TableCell >{item.cart.quantity}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -439,7 +444,7 @@ export default function Order() {
               </Table>
             </TableContainer>
             <div>
-              {(status === 'Paid' || status === 'Finished') && (
+              {(status === 'Paid' || status === 'Finished' || status === 'In Transit') && (
                 <Button size='large' variant='contained' onClick={handleOpenWarranty}>
                   Show Warranty
                 </Button>
@@ -504,7 +509,12 @@ export default function Order() {
                     </div>
                   </div>
                   <div>
-                    <Button size='large' variant='contained' onClick={() => navigate(`/pdfWarranty/${warrantyId}`)}>Go to pdf file</Button>
+                    <Button size='large'
+                      variant='contained'
+                      onClick={() => window.open(`/pdfWarranty/${warrantyId}`, '_blank')}>
+                      Go to pdf file
+                    </Button>
+
                   </div>
                 </Container>
               )}

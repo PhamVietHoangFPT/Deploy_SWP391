@@ -117,7 +117,17 @@ export default function ShowDetails(props) {
                 )}
               </div>
             </div>
-
+            <div className='formSubmit' >
+              <Button type="button"
+                value="Clear" onClick={handleClose}
+                className='submitButton'
+                variant="contained" size="large" color="error"
+                sx={{
+                  margin: '5px',
+                }}>
+                Close
+              </Button>
+            </div>
           </Box>
         </Container>
       </Modal>

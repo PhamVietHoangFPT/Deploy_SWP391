@@ -85,129 +85,125 @@ export default function ReadAccount() {
 	}
 
 	return (
-		<>
-			<div className='formCRUDContainer'>
-				<div style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					margin: '10px',
-				}}>
-					
-					<div><ReadAccountByName onAccountRead={() => setTriggerRead(prev => !prev)}></ReadAccountByName></div>
-					<div><CreateAccount onAccountCreated={() => setTriggerRead(prev => !prev)}></CreateAccount></div>
-				</div>
-				<TableContainer >
-					<Table stickyHeader >
-						<TableHead>
-							<TableRow>
-								{columns.map((column) => (
-									<TableCell
-										key={column.id}
-										align={column.align}
-										sx={{
-											fontWeight: 'bold',
-											fontSize: '1.2em'
-										}}
-									>
-										{column.label}
-									</TableCell>
-								))}
-
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{console.log(data)}
-							{Array.isArray(data) && data
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((data, index) => (
-									<TableRow key={data.id}>
-										<TableCell>{index + 1 + page * rowsPerPage}</TableCell>
-										<TableCell>
-											{data.name}
-										</TableCell>
-										<TableCell>
-											{data.email}
-										</TableCell>
-										<TableCell>
-											{data.gender ? 'Male' : 'Female'}
-										</TableCell>
-										<TableCell>
-											{data.phoneNumber}
-										</TableCell>
-										<TableCell>
-											{data.address}
-										</TableCell>
-										<TableCell>
-											{data.role?.name}
-										</TableCell>
-										<TableCell>
-											<Button variant="outlined" color="error"
-												size="large" endIcon={<DeleteIcon />}
-												sx={{
-													margin: '5px',
-													fontWeight: 'bold'
-												}} onClick={() => handleDelete(data.id)}>
-												DELETE
-											</Button>
-
-											{selectedForDeletion === data.id && showDelete && (
-												<div>
-													<Button
-														type="submit"
-														value="Submit" variant="contained" color="success"
-														size="large" endIcon={<SendIcon />}
-														sx={{
-															margin: '5px',
-														}}
-														onClick={() => {
-															handleSubmitDelete(data.id)
-															handleDelete(data.id)
-														}
-														}>
-														Confirm
-													</Button>
-													<Button type="button"
-														value="Clear" onClick={() => setShowDelete(false)}
-														variant="contained" size="large" color="error"
-														endIcon={<CancelIcon />}
-														sx={{
-															margin: '5px',
-														}}>
-														Cancel
-													</Button>
-												</div>
-											)}
-										</TableCell>
-										<TableCell>
-											<UpdateAccount id={selectedForUpdate}
-												email={data.email}
-												name={data.name}
-												gender={data.gender}
-												phone={data.phoneNumber}
-												address={data.address}
-												onClick={() => handleUpdate(data.id)}
-												onAccountUpdated={() => setTriggerRead(prev => !prev)}></UpdateAccount>
-										</TableCell>
-									</TableRow>
-								))}
-						</TableBody>
-					</Table>
-				</TableContainer>
-				<TablePagination
-					rowsPerPageOptions={[10, 25, 50]}
-					component="div"
-					count={Array.isArray(data) && (data.length)}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					onPageChange={handleChangePage}
-					onRowsPerPageChange={handleChangeRowsPerPage}
-					sx={{
-						display: 'flex',
-						justifyContent: 'flex-end',
-					}}
-				/>
+		<div className='formCRUDContainer'>
+			<div style={{
+				display: 'flex',
+				justifyContent: 'space-between',
+				margin: '10px',
+			}}>
+				<div><ReadAccountByName onAccountRead={() => setTriggerRead(prev => !prev)}></ReadAccountByName></div>
+				<div><CreateAccount onAccountCreated={() => setTriggerRead(prev => !prev)}></CreateAccount></div>
 			</div>
+			<TableContainer >
+				<Table stickyHeader >
+					<TableHead>
+						<TableRow>
+							{columns.map((column) => (
+								<TableCell
+									key={column.id}
+									align={column.align}
+									sx={{
+										fontWeight: 'bold',
+										fontSize: '1.2em'
+									}}
+								>
+									{column.label}
+								</TableCell>
+							))}
 
-		</>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{console.log(data)}
+						{Array.isArray(data) && data
+							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+							.map((data, index) => (
+								<TableRow key={data.id}>
+									<TableCell>{index + 1 + page * rowsPerPage}</TableCell>
+									<TableCell>
+										{data.name}
+									</TableCell>
+									<TableCell>
+										{data.email}
+									</TableCell>
+									<TableCell>
+										{data.gender ? 'Male' : 'Female'}
+									</TableCell>
+									<TableCell>
+										{data.phoneNumber}
+									</TableCell>
+									<TableCell>
+										{data.address}
+									</TableCell>
+									<TableCell>
+										{data.role?.name}
+									</TableCell>
+									<TableCell>
+										<Button variant="outlined" color="error"
+											size="large" endIcon={<DeleteIcon />}
+											sx={{
+												margin: '5px',
+												fontWeight: 'bold'
+											}} onClick={() => handleDelete(data.id)}>
+											DELETE
+										</Button>
+
+										{selectedForDeletion === data.id && showDelete && (
+											<div>
+												<Button
+													type="submit"
+													value="Submit" variant="contained" color="success"
+													size="large" endIcon={<SendIcon />}
+													sx={{
+														margin: '5px',
+													}}
+													onClick={() => {
+														handleSubmitDelete(data.id)
+														handleDelete(data.id)
+													}
+													}>
+													Confirm
+												</Button>
+												<Button type="button"
+													value="Clear" onClick={() => setShowDelete(false)}
+													variant="contained" size="large" color="error"
+													endIcon={<CancelIcon />}
+													sx={{
+														margin: '5px',
+													}}>
+													Cancel
+												</Button>
+											</div>
+										)}
+									</TableCell>
+									<TableCell>
+										<UpdateAccount id={selectedForUpdate}
+											email={data.email}
+											name={data.name}
+											gender={data.gender}
+											phone={data.phoneNumber}
+											address={data.address}
+											onClick={() => handleUpdate(data.id)}
+											onAccountUpdated={() => setTriggerRead(prev => !prev)}></UpdateAccount>
+									</TableCell>
+								</TableRow>
+							))}
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<TablePagination
+				rowsPerPageOptions={[10, 25, 50]}
+				component="div"
+				count={Array.isArray(data) && (data.length)}
+				rowsPerPage={rowsPerPage}
+				page={page}
+				onPageChange={handleChangePage}
+				onRowsPerPageChange={handleChangeRowsPerPage}
+				sx={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+				}}
+			/>
+		</div>
 	)
 }
