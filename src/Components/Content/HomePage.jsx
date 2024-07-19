@@ -5,6 +5,7 @@ import Banner2 from './Banner/Banner2';
 import Collection from './Category/Collection';
 './Banner/Banner2';
 import AboutUs from './Banner/AboutUs';
+import News from './News/News';
 export default function HomePage() {
 
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Category></Category>
       {/* <Banner2></Banner2> */}
       <Collection></Collection>
+      <News></News>
       <AboutUs></AboutUs>
     </div>
   );

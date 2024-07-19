@@ -34,6 +34,8 @@ import { gapi } from 'gapi-script'
 import PolicyPage from './Pages/PolicyPage'
 import ShowAllPromotion from './Admin/Elements/Promotions/Promotion'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import Service1 from './Components/Content/NewsDetail/ServiceDetail1'
+import Service2 from './Components/Content/NewsDetail/ServiceDetail2'
 export default function App() {
   const clientId = "629470625241-289cmgv2sgrusl96bhmhsnpjjbr0m98b.apps.googleusercontent.com";
   useEffect(() => {
@@ -63,6 +65,8 @@ export default function App() {
             <Route path='/payment/success' element={<PaymentSuccessful></PaymentSuccessful>}></Route>
             <Route path='/payment/cancel' element={<PaymentFail></PaymentFail>}></Route>
             <Route path='/policyPage' element={<PolicyPage></PolicyPage>}></Route>
+            <Route path='/Service1' element={<Service1></Service1>}></Route>
+            <Route path='/Service2' element={<Service2></Service2>}></Route>
           </Route>
 
           <Route path='/pdfWarranty/:id' element={<PdfFileWarranty />}></Route>
