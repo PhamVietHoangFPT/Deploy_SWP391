@@ -76,29 +76,31 @@ export default function Dashboard() {
                 ...styleBox,
                 backgroundColor: 'lightgreen',
               }}>
-                <h4>Number of product sold</h4>
+                <h4>Product </h4>
                 <h4>{dataDashboardStats.numberOfProducts}</h4>
               </Box>
               <Box sx={{
                 ...styleBox,
                 backgroundColor: 'lightblue',
               }}>
-                <h4>Number of diamond sold</h4>
+                <h4>Diamond</h4>
                 <h4>{dataDashboardStats.numberOfDiamonds}</h4>
               </Box>
               <Box sx={{
                 ...styleBox,
                 backgroundColor: 'lightcoral',
               }}>
-                <h4>Total Revenue</h4>
-                <h4>{dataDashboardStats.totalRevenue}</h4>
+                <h4>Revenue</h4>
+                <h4>${dataDashboardStats.totalRevenue.toLocaleString()}</h4>
               </Box>
               <Box sx={{
                 ...styleBox,
                 backgroundColor: 'lightgray',
               }}>
                 <h4>Profit</h4>
-                <h4>{Number(dataDashboardStats.profit).toFixed(2)}</h4>
+                <h4>$
+                  {Number(dataDashboardStats.profit).
+                    toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
               </Box>
             </div>
           </div>
