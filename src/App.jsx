@@ -28,8 +28,11 @@ import Certificate from './Admin/Elements/Certificate/Certificate'
 import PdfFileWarranty from './Pages/PdfFileWarranty'
 import PaymentFail from './Pages/DiamondPage'
 import Voucher from './Admin/Elements/Voucher/Voucher'
+import PdfFileCertificate from './Pages/PdfFileCertificate'
+import Dashboard from './Admin/Dashboard'
 import { gapi } from 'gapi-script'
 import PolicyPage from './Pages/PolicyPage'
+import ShowAllPromotion from './Admin/Elements/Promotions/Promotion'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 export default function App() {
   const clientId = "629470625241-289cmgv2sgrusl96bhmhsnpjjbr0m98b.apps.googleusercontent.com";
@@ -63,10 +66,12 @@ export default function App() {
           </Route>
 
           <Route path='/pdfWarranty/:id' element={<PdfFileWarranty />}></Route>
+          <Route path='/pdfCert/:id' element={<PdfFileCertificate />}></Route>
 
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/admin' element={<Admin />}>
+            <Route index element={<Dashboard />} />
             <Route path='account' element={<Account />} />
             <Route path='category' element={<Category />} />
             <Route path='product' element={<ShowAllProduct />}></Route>
@@ -77,6 +82,7 @@ export default function App() {
             <Route path='payment' element={<ShowAllPayment></ShowAllPayment>}></Route>
             <Route path='certificate' element={<Certificate></Certificate>}></Route>
             <Route path='voucher' element={<Voucher></Voucher>}></Route>
+            <Route path='promotion' element={<ShowAllPromotion></ShowAllPromotion>}></Route>
           </Route>
 
         </Routes >

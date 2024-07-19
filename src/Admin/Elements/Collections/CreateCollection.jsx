@@ -7,17 +7,10 @@ import { Form, Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import { createApi } from '../../../Auth/AuthFunction'
 export default function CreateDiamondCase(props) {
-	const [data, setData] = useState(null)
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => {
 		setOpen(false)
-		setData(null)
-	}
-
-	const handleClear = () => {
-		// setName('')
-		// setData(null)
 	}
 
 	function Create(values) {
@@ -36,9 +29,10 @@ export default function CreateDiamondCase(props) {
 		})
 			.then(response => response.json())
 			.then(responseData => {
-				setData(responseData)
+				props.onCollectionCreated()
+				handleClose()
 			})
-		props.onCollectionCreated()
+
 	}
 	const validationSchema = Yup.object({
 		name: Yup.string().required('Required'),
@@ -109,21 +103,20 @@ export default function CreateDiamondCase(props) {
 										type="submit"
 										className='submitButton'
 										value="Submit" variant="contained"
-										size="large" endIcon={<SendIcon />}
+										size="large"
 										sx={{
 											margin: '5px',
 										}}>
-										Send
+										Save
 									</Button>
 									<Button type="button"
-										value="Clear" onClick={handleClear}
+										value="Clear" onClick={handleClose}
 										className='submitButton'
 										variant="contained" size="large" color="error"
-										endIcon={<CancelScheduleSendIcon />}
 										sx={{
 											margin: '5px',
 										}}>
-										Clear
+										Close
 									</Button>
 								</div>
 							</Form>

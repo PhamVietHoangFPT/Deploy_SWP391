@@ -12,13 +12,10 @@ import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined'
 import { jwtDecode } from 'jwt-decode'
 export default function Order() {
   const [order, setOrder] = useState([])
-  const navigate = useNavigate()
   const [openPayment, setOpenPayment] = useState(false)
   const [openDetail, setOpenDetail] = useState(false)
   const [orderDetail, setOrderDetail] = useState([])
-  const [warranty, setWarranty] = useState([])
-  const [warrantyId, setWarrantyId] = useState()
-  const [openWarranty, setOpenWarranty] = useState(false)
+  const [orderId, setOrderId] = useState()
   const [status, setStatus] = useState('')
   const [orderDetailId, setOrderDetailId] = useState()
   const [paymentId, setPaymentId] = useState()
@@ -64,20 +61,16 @@ export default function Order() {
   const handleOpenDetail = (id, status) => {
     setOpenDetail(true)
     getOrderDetail(id)
-    getWarranty(id)
     setStatus(status)
+    setOrderId(id)
   }
 
-  const handleCloseDetail = (id) => {
+  const handleCloseDetail = () => {
     setOpenDetail(false)
-    setWarrantyId(null)
-    setWarranty([])
-    setOpenWarranty(false)
+    setOrderId(null)
+    setOrderDetail([])
   }
 
-  const handleOpenWarranty = () => {
-    setOpenWarranty(true)
-  }
 
   const handlePayment = (userId, paymentId, orderDetailId) => {
     const url = createApi(`PayOs/Checkout?userId=${userId}&orderId=${orderDetailId}&paymentId=${paymentId}`)
@@ -147,9 +140,10 @@ export default function Order() {
     getOrder()
   }, [triggerRead])
 
-  const getOrderDetail = (id) => {
+
+  const getOrderDetail = async (id) => {
     const url = createApi(`Order/GetProductDetailById/${id}`);
-    fetch(url, {
+    await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -161,25 +155,10 @@ export default function Order() {
       })
   }
 
-  const getWarranty = (id) => {
-    const url = createApi(`WarrantyDocument?orderId=${id}`)
-    setWarrantyId(id)
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then(response => response.json())
-      .then(data => {
-        setWarranty(data)
-      })
-  }
-
-  console.log(warranty)
 
   const headerTable = ['#', 'Order date', 'Total price', 'Status', 'Phone', 'Address', '']
   const headerTableDetail = ['Image', 'Name', 'Total price', 'Quantity']
+
   const statusColor = {
     'Wait To Approve': '#7b818a',
     'Approved': '#64d9ff',
@@ -187,7 +166,7 @@ export default function Order() {
     'In Transit': '#f9d800',
     'Finished': '#ffb03d',
     'Cancelled': '#ff2a04'
-  };
+  }
   return (
     <div style={{
       background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
@@ -356,7 +335,7 @@ export default function Order() {
                   {orderDetail.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell>
-                        <img src={item.cart.product ? (item.cart.product.images[0].urlPath) : null} style={{
+                        <img src={item.cart.product ? (item.cart.product.images[0]?.urlPath) : (item.cart.diamond.images[0]?.urlPath)} style={{
                           width: '150px',
                           height: '150px',
                         }} />
@@ -426,10 +405,10 @@ export default function Order() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orderDetail.map((item, index) => (
+                  {orderDetail && orderDetail.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell>
-                        <img src={item.cart.product ? (item.cart.product.images[0].urlPath) : item.cart.diamond.images[0]?.urlPath} style={{
+                        <img src={item.cart.product ? item.cart.product.images[0].urlPath : item.cart.diamond.images[0]?.urlPath} style={{
                           width: '150px',
                           height: '150px',
                         }} />
@@ -443,84 +422,33 @@ export default function Order() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <div>
-              {(status === 'Paid' || status === 'Finished' || status === 'In Transit') && (
-                <Button size='large' variant='contained' onClick={handleOpenWarranty}>
-                  Show Warranty
-                </Button>
-              )}
-              {openWarranty && (
-                <Container>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    widows: '100%',
-                  }}>
-                    <div>
-                      <h4>
-                        Customer Name: {warranty.account.name}
-                      </h4>
-                    </div>
-                    <div>
-                      <h4>
-                        Customer Email: {warranty.account.email}
-                      </h4>
-                    </div>
-                    <div>
-                      <TableContainer>
-                        <Table>
-                          <TableHead>
-                            <TableCell>
-                              <h4>
-                                Product Name
-                              </h4>
-                            </TableCell>
-                            <TableCell>
-                              <h4>
-                                Period
-                              </h4>
-                            </TableCell>
-                            <TableCell>
-                              <h4>
-                                Warranty
-                              </h4>
-                            </TableCell>
-                          </TableHead>
-
-                          {warranty.orderProducts.map((item, index) => (
-                            <TableBody key={index}>
-                              <TableCell>
-                                {item.name}
-                              </TableCell>
-                              <TableCell>
-                                {new Date(warranty.warrantyDocuments[index].period).toLocaleDateString('en-US')}
-                              </TableCell>
-                              <TableCell>
-                                {warranty.warrantyDocuments[index].termsAndConditions}
-                              </TableCell>
-                            </TableBody>
-
-                          ))}
-                        </Table>
-                      </TableContainer>
-
-                    </div>
-                  </div>
-                  <div>
-                    <Button size='large'
-                      variant='contained'
-                      onClick={() => window.open(`/pdfWarranty/${warrantyId}`, '_blank')}>
-                      Go to pdf file
-                    </Button>
-
-                  </div>
-                </Container>
-              )}
-            </div>
+            {(status === 'Paid' || status === 'Finished' || status === 'In Transit') && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <div>
+                  <Button size='large'
+                    variant='contained'
+                    color='primary'
+                    onClick={() => window.open(`/pdfCert/${orderId}`, '_blank')}>
+                    Certificate pdf file
+                  </Button>
+                </div>
+                <div>
+                  <Button size='large'
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => window.open(`/pdfWarranty/${orderId}`, '_blank')}>
+                    Warranty pdf file
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
-
         </Box>
       </Modal>
     </div >

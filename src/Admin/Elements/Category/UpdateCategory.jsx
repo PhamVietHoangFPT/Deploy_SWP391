@@ -39,7 +39,7 @@ export default function UpdateCategory(props) {
     const Data = {
       "name": values.nameCategory,
       "isDeleted": false,
-      'groupId': values.typeCategory
+      'groupId': 1
     }
     fetch(url, {
       method: 'PUT',
@@ -52,8 +52,9 @@ export default function UpdateCategory(props) {
     })
       .then(response => response.json())
       .then(data => {
-        handleClose()
         props.onUpdateCategory()
+        handleClose()
+
       })
   }
 

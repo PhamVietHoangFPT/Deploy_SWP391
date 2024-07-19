@@ -7,7 +7,7 @@ import { createApi } from '../../../Auth/AuthFunction'
 export default function CRUDCollections() {
   const [data, setData] = useState(null)
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(9)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [triggerRead, setTriggerRead] = useState(false);
 
   const handleChangePage = (event, newPage) => {
@@ -95,7 +95,7 @@ export default function CRUDCollections() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[9]}
+          rowsPerPageOptions={[10]}
           component="div"
           count={Array.isArray(data) && (data.length)}
           rowsPerPage={rowsPerPage}

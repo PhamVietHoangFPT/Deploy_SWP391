@@ -62,6 +62,10 @@ export default function NavbarAdmin() {
 		navigate('/admin/voucher')
 	}
 
+	function goToPromotion() {
+		navigate('/admin/promotion')
+	}
+
 	const buttonStyle = {
 		color: '#fff',
 		width: '-webkit-fill-available',
@@ -113,6 +117,9 @@ export default function NavbarAdmin() {
 						<Menu.Item key="Product" style={paddingStyle}>
 							<Button onClick={goToProduct} sx={buttonStyle}>Product</Button>
 						</Menu.Item>
+						<Menu.Item key="Promotion" style={paddingStyle}>
+							<Button onClick={goToPromotion} sx={buttonStyle}>Promotion</Button>
+						</Menu.Item>
 						<Menu.Item key="Payment" style={paddingStyle}>
 							<Button onClick={goToPayment} sx={buttonStyle}>Payment</Button>
 						</Menu.Item>
@@ -130,11 +137,10 @@ export default function NavbarAdmin() {
 					<Button onClick={Logout} sx={{
 						color: '#fff',
 						width: '-webkit-fill-available',
-
 					}} color='error' variant="contained">Log out</Button>
 				</Menu.Item>
 			</Menu>
-			<Outlet />
+
 		</div >
 	)
 }

@@ -497,7 +497,7 @@ export default function Cart() {
                                       </div>
                                     </div>
                                     <div>
-                                      {userDetailPoint === 0 ? (
+                                      {discountPercentagePromotion === 0 ? (
                                         <h3>
                                           Total: {(totalPriceCalculate).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                                         </h3>
