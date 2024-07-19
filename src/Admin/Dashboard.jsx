@@ -91,7 +91,7 @@ export default function Dashboard() {
                 backgroundColor: 'lightcoral',
               }}>
                 <h4>Revenue</h4>
-                <h4>${dataDashboardStats.totalRevenue.toLocaleString()}</h4>
+                <h4>${dataDashboardStats.totalRevenue?.toLocaleString()}</h4>
               </Box>
               <Box sx={{
                 ...styleBox,
