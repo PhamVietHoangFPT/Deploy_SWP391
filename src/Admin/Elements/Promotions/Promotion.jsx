@@ -47,7 +47,12 @@ export default function ShowAllPromotion() {
               <TableHead>
                 <TableRow>
                   {dataRow.map((item, index) => (
-                    <TableCell key={index}>{item}</TableCell>
+                    <TableCell key={index} sx={{
+                      fontWeight: 'bold',
+                      fontSize: '20px'
+                    }}>
+                      {item}
+                    </TableCell>
                   ))}
                   <TableCell>Deleted</TableCell>
                   <TableCell></TableCell>

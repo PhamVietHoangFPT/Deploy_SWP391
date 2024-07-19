@@ -5,7 +5,7 @@ import { FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material'
 export default function Dashboard() {
   const [dataDashboard, setDataDashboard] = useState([])
   const [year, setYear] = useState(new Date().getFullYear().toString())
-  const [dataDashboardStats, setDataDashboardStats] = useState([])
+  const [dataDashboardStats, setDataDashboardStats] = useState(null)
   const [triggerRead, setTriggerRead] = useState(false)
   const years = Array.from({ length: 2034 - 2024 + 1 }, (_, index) => 2024 + index);
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function Dashboard() {
                       valueFormatter: (value) => `${value}`,
                     }]}
                     xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
-                    series={[{ data: dataDashboard.map(item => item.data.totalOrders) }]}
+                    series={[{ data: dataDashboard.map(item => item.data.totalOrders), valueFormatter: (value) => `${value} order(s)` }]}
                     width={500}
                     height={300}
                   />
