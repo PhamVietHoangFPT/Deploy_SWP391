@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { createApi } from '../Auth/AuthFunction'
 import { BarChart } from '@mui/x-charts/BarChart'
 import { FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 export default function Dashboard() {
   const [dataDashboard, setDataDashboard] = useState([])
   const [year, setYear] = useState(new Date().getFullYear().toString())
@@ -61,144 +62,159 @@ export default function Dashboard() {
   return (
     <div className='contentAdminContainer'>
       <div className='CRUDContainer '>
-        <div className='titleOfFormContainer'>
-          <h2>Dashboard</h2>
-        </div>
-        {dataDashboardStats && (
-          <div>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              gap: '1rem',
-            }}>
-              <Box sx={{
-                ...styleBox,
-                backgroundColor: 'lightgreen',
-              }}>
-                <h4>Product </h4>
-                <h4>{dataDashboardStats.numberOfProducts}</h4>
-              </Box>
-              <Box sx={{
-                ...styleBox,
-                backgroundColor: 'lightblue',
-              }}>
-                <h4>Diamond</h4>
-                <h4>{dataDashboardStats.numberOfDiamonds}</h4>
-              </Box>
-              <Box sx={{
-                ...styleBox,
-                backgroundColor: 'lightcoral',
-              }}>
-                <h4>Revenue</h4>
-                <h4>${dataDashboardStats.totalRevenue?.toLocaleString()}</h4>
-              </Box>
-              <Box sx={{
-                ...styleBox,
-                backgroundColor: 'lightgray',
-              }}>
-                <h4>Profit</h4>
-                <h4>$
-                  {Number(dataDashboardStats.profit).
-                    toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
-              </Box>
+        {dataDashboardStats && dataDashboard.length === 12 ? (
+          <>
+            <div className='titleOfFormContainer'>
+              <h2>Dashboard</h2>
             </div>
-          </div>
-        )}
-        <br />
-        <div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-            <div style={{
-              width: '15%',
-            }}>
-              <FormControl fullWidth>
-                <InputLabel>Select Year</InputLabel>
-                <Select
-                  id="yearSelect"
-                  label="Select Year"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value)}
-                >
-                  {years.map((year) => (
-                    <MenuItem key={year} value={year}>
-                      {year}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-          </div>
-          <div>
-            {dataDashboard.length === 12 && (
-              <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '1rem',
-              }}>
+            {dataDashboardStats && (
+              <div>
                 <div style={{
                   display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  gap: '1rem',
                 }}>
-                  <BarChart
-                    yAxis={[{
-                      label: 'Total Orders',
-                      valueFormatter: (value) => `${value}`,
-                    }]}
-                    xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
-                    series={[{ data: dataDashboard.map(item => item.data.totalOrders), valueFormatter: (value) => `${value} order(s)` }]}
-                    width={500}
-                    height={300}
-                  />
-                  <h4>Total Orders</h4>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <BarChart
-                    yAxis={[{
-                      valueFormatter: valueFormatterPrice,
-                    }]}
-                    xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
-                    series={[{ data: dataDashboard.map(item => item.data.totalRevenue), valueFormatter: valueFormatterPrice }]}
-                    width={500}
-                    height={300}
-                  />
-                  <h4>
-                    Total Revenue
-                  </h4>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <BarChart
-                    yAxis={[{ valueFormatter: valueFormatterPrice }]}
-                    xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
-                    series={[{ data: dataDashboard.map(item => item.data.averageOrderValue), valueFormatter: valueFormatterPrice }]}
-                    width={500}
-                    height={300}
-                  />
-                  <h4>
-                    Average Order Value
-                  </h4>
+                  <Box sx={{
+                    ...styleBox,
+                    backgroundColor: 'lightgreen',
+                  }}>
+                    <h4>Product </h4>
+                    <h4>{dataDashboardStats.numberOfProducts}</h4>
+                  </Box>
+                  <Box sx={{
+                    ...styleBox,
+                    backgroundColor: 'lightblue',
+                  }}>
+                    <h4>Diamond</h4>
+                    <h4>{dataDashboardStats.numberOfDiamonds}</h4>
+                  </Box>
+                  <Box sx={{
+                    ...styleBox,
+                    backgroundColor: 'lightcoral',
+                  }}>
+                    <h4>Revenue</h4>
+                    <h4>${dataDashboardStats.totalRevenue?.toLocaleString()}</h4>
+                  </Box>
+                  <Box sx={{
+                    ...styleBox,
+                    backgroundColor: 'lightgray',
+                  }}>
+                    <h4>Profit</h4>
+                    <h4>$
+                      {Number(dataDashboardStats.profit).
+                        toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+                  </Box>
                 </div>
               </div>
-
             )}
+            <br />
+            <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'flex-end'
+              }}>
+                <div style={{
+                  width: '15%',
+                }}>
+                  <FormControl fullWidth>
+                    <InputLabel>Select Year</InputLabel>
+                    <Select
+                      id="yearSelect"
+                      label="Select Year"
+                      value={year}
+                      onChange={(e) => setYear(e.target.value)}
+                    >
+                      {years.map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+              <div>
+                {dataDashboard.length === 12 && (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '1rem',
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <BarChart
+                        yAxis={[{
+                          label: 'Total Orders',
+                          valueFormatter: (value) => `${value}`,
+                        }]}
+                        xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
+                        series={[{ data: dataDashboard.map(item => item.data.totalOrders), valueFormatter: (value) => `${value} order(s)` }]}
+                        width={500}
+                        height={300}
+                      />
+                      <h4>Total Orders</h4>
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <BarChart
+                        yAxis={[{
+                          valueFormatter: valueFormatterPrice,
+                        }]}
+                        xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
+                        series={[{ data: dataDashboard.map(item => item.data.totalRevenue), valueFormatter: valueFormatterPrice }]}
+                        width={500}
+                        height={300}
+                      />
+                      <h4>
+                        Total Revenue
+                      </h4>
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <BarChart
+                        yAxis={[{ valueFormatter: valueFormatterPrice }]}
+                        xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
+                        series={[{ data: dataDashboard.map(item => item.data.averageOrderValue), valueFormatter: valueFormatterPrice }]}
+                        width={500}
+                        height={300}
+                      />
+                      <h4>
+                        Average Order Value
+                      </h4>
+                    </div>
+                  </div>
+
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+            width: '100%',
+          }}>
+            <CircularProgress />
           </div>
-        </div>
+        )
+        }
       </div>
     </div>
   )

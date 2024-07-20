@@ -10,15 +10,11 @@ export default function NavbarAdmin() {
 	const role = localStorage.getItem('role')
 
 	function goToCategory() {
-		navigate('/admin/category')
+		navigate('/admin/category?pageNumber=1')
 	}
 
 	function goToAccount() {
-		navigate('/admin/account')
-	}
-
-	function goToHome() {
-		navigate('/')
+		navigate('/admin/account?pageNumber=1')
 	}
 
 	function goToAdmin() {
@@ -31,23 +27,23 @@ export default function NavbarAdmin() {
 	}
 
 	function goToProduct() {
-		navigate('/admin/product')
+		navigate('/admin/product?pageNumber=1&name=&OrderBy=false')
 	}
 
 	function goToDiamond() {
-		navigate('/admin/diamond')
+		navigate('/admin/diamond?pageNumber=1&name=')
 	}
 
 	function goToDiamondCase() {
-		navigate('/admin/diamondCase')
+		navigate('/admin/diamondCase?pageNumber=1')
 	}
 
 	function goToCollections() {
-		navigate('/admin/collections')
+		navigate('/admin/collections?pageNumber=1')
 	}
 
 	function goToOrder() {
-		navigate('/admin/order')
+		navigate('/admin/order?pageNumber=1&status=Default')
 	}
 
 	function goToPayment() {
@@ -55,7 +51,7 @@ export default function NavbarAdmin() {
 	}
 
 	function goToCertificate() {
-		navigate('/admin/certificate')
+		navigate('/admin/certificate?pageNumber=1')
 	}
 
 	function goToVoucher() {

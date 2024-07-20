@@ -159,7 +159,7 @@ export default function CreateDiamond(props) {
     <div style={{
       display: 'flex',
       justifyContent: 'flex-end',
-      marginRight: '10vw',
+      marginRight: '1vw',
       marginTop: '2vh'
     }}>
       <Button variant="contained" type="button" size="large" onClick={handleOpen}>

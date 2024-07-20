@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { createApi } from '../../../Auth/AuthFunction'
 import {
   TableContainer, Table, TableHead, TableBody,
   TableCell, TableRow, Button, Modal,
   Box, Stack, Pagination, FormControl, InputLabel,
   Select, OutlinedInput, MenuItem,
-  ListItemText
+  ListItemText, CircularProgress
 } from '@mui/material'
 
 export default function OrderAdmin() {
-  const [dataOrder, setDataOrder] = useState([])
+  const [searchParams] = useSearchParams()
+  const [dataOrder, setDataOrder] = useState(null)
   const [triggerRead, setTriggerRead] = useState(false)
-  const [PageNumber, setPageNumber] = useState(1)
+  const [PageNumber, setPageNumber] = useState(searchParams.get('pageNumber') || 1)
   const [PageSize, setPageSize] = useState(10)
   const [TotalPage, setTotalPage] = useState(null)
-  const [status, setStatus] = useState('Default')
+  const [status, setStatus] = useState(searchParams.get('status') || 'Default')
   const [orderDetail, setOrderDetail] = useState([])
   const [idOrder, setIdOrder] = useState(null)
   const [open, setOpen] = useState(false)
@@ -58,6 +59,8 @@ export default function OrderAdmin() {
   };
 
   const handleChangeStatus = (value) => {
+    navigate(`/admin/order?pageNumber=1&status=${value}`)
+    setDataOrder(null)
     setStatus(value)
     setPageNumber(1)
     setTriggerRead(prev => !prev)
@@ -135,6 +138,8 @@ export default function OrderAdmin() {
   }
 
   const handlePageChange = (event, value) => {
+    navigate(`/admin/order?pageNumber=${value}&status=${status}`)
+    setDataOrder(null)
     setPageNumber(value)
     setTriggerRead(prev => !prev)
   }
@@ -152,7 +157,9 @@ export default function OrderAdmin() {
           alignItems: 'center',
           marginBottom: '20px',
         }}>
-          <h2>Order</h2>
+          <div>
+            <h2>Order</h2>
+          </div>
           <FormControl sx={{
             minWidth: 240,
           }}>
@@ -174,95 +181,108 @@ export default function OrderAdmin() {
             </Select>
           </FormControl>
         </div>
+        {dataOrder ? (
+          <>
+            <div>
+              <TableContainer>
+                <Table>
+                  <TableHead style={{
+                    backgroundColor: 'lightgray'
+                  }}>
+                    {headerTable.map((header) => (
+                      <TableCell sx={{
+                        fontWeight: 'bold',
+                        fontSize: '20px',
+                      }}>{header}</TableCell>
+                    ))}
+                  </TableHead>
 
-        <div>
-          <TableContainer>
-            <Table>
-              <TableHead style={{
-                backgroundColor: 'lightgray'
-              }}>
-                {headerTable.map((header) => (
-                  <TableCell sx={{
-                    fontWeight: 'bold',
-                    fontSize: '20px',
-                  }}>{header}</TableCell>
-                ))}
-              </TableHead>
-
-              <TableBody>
-                {dataOrder.items?.map((order) => (
-                  <TableRow key={order.id}>
-                    <TableCell>{order.id}</TableCell>
-                    <TableCell>{order.createdDate}</TableCell>
-                    <TableCell>{order.accountName}</TableCell>
-                    <TableCell>
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                      }}>
-                        <div style={{
-                          marginRight: '20px'
-                        }}>
-                          <Button variant="contained"
-                            sx={{
-                              backgroundColor: statusColor[order.status] || 'black',
-                              '&:hover': {
-                                backgroundColor: statusColor[order.status] || 'black',
-                              }
+                  <TableBody>
+                    {dataOrder.items?.map((order) => (
+                      <TableRow key={order.id}>
+                        <TableCell>{order.id}</TableCell>
+                        <TableCell>{order.createdDate}</TableCell>
+                        <TableCell>{order.accountName}</TableCell>
+                        <TableCell>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                          }}>
+                            <div style={{
+                              marginRight: '20px'
                             }}>
-                            {order.status}
+                              <Button variant="contained"
+                                sx={{
+                                  backgroundColor: statusColor[order.status] || 'black',
+                                  '&:hover': {
+                                    backgroundColor: statusColor[order.status] || 'black',
+                                  }
+                                }}>
+                                {order.status}
+                              </Button>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>${order.totalPrice.toLocaleString()}</TableCell>
+                        <TableCell>
+                          {order.phone}
+                        </TableCell>
+                        <TableCell>
+                          {order.address}
+                        </TableCell>
+                        <TableCell>
+                          <Button onClick={() => handleOpen(order.id)}>
+                            Detail
                           </Button>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>${order.totalPrice.toLocaleString()}</TableCell>
-                    <TableCell>
-                      {order.phone}
-                    </TableCell>
-                    <TableCell>
-                      {order.address}
-                    </TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleOpen(order.id)}>
-                        Detail
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      {(order.status === 'Wait To Approve') && (
-                        <div>
-                          <Button variant="contained" onClick={() => approveButton(order.id)}>Approve</Button>
-                        </div>
-                      )}
-                      {(order.status === 'Paid') && (
-                        <div>
-                          <Button variant="contained" color='secondary' onClick={() => inTransitButton(order.id)}>
-                            In Transit
-                          </Button>
-                        </div>
-                      )}
-                      {(order.status === 'In Transit') && (
-                        <div>
-                          <Button variant="contained" color='warning' onClick={() => finishButton(order.id)}>
-                            Finished
-                          </Button>
-                        </div>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <Stack sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <Pagination count={TotalPage} page={PageNumber} onChange={handlePageChange} />
-        </Stack>
+                        </TableCell>
+                        <TableCell>
+                          {(order.status === 'Wait To Approve') && (
+                            <div>
+                              <Button variant="contained" onClick={() => approveButton(order.id)}>Approve</Button>
+                            </div>
+                          )}
+                          {(order.status === 'Paid') && (
+                            <div>
+                              <Button variant="contained" color='secondary' onClick={() => inTransitButton(order.id)}>
+                                In Transit
+                              </Button>
+                            </div>
+                          )}
+                          {(order.status === 'In Transit') && (
+                            <div>
+                              <Button variant="contained" color='warning' onClick={() => finishButton(order.id)}>
+                                Finished
+                              </Button>
+                            </div>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+            <Stack sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <Pagination count={TotalPage} page={PageNumber} onChange={handlePageChange} />
+            </Stack>
+          </>
+        ) : (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+            width: '100%',
+          }}>
+            <CircularProgress />
+          </div>
+        )}
         <Modal
           open={open}
           onClose={handleClose}

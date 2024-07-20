@@ -4,16 +4,19 @@ import CardContent from '@mui/material/CardContent'
 import React, { useEffect, useState, useCallback } from 'react'
 import {
   Stack, Pagination, CardMedia, FormControl, InputLabel,
-  Select, MenuItem, Slider, Button
+  Select, MenuItem, Slider, Button, TextField
 } from '@mui/material'
-import { debounce } from 'lodash';
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { debounce, set } from 'lodash';
+import { Link } from 'react-router-dom'
 import { createApi } from '../../Auth/AuthFunction'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import CircularProgress from '@mui/material/CircularProgress'
 export default function GetPageDiamond() {
-  const { PageNumberFromURL } = useParams()
-  const [PageNumber, setPageNumber] = useState(PageNumberFromURL)
-  const [PageSize, setPageSize] = useState(5)
+  const [searchParams] = useSearchParams()
+  const [PageNumber, setPageNumber] = useState(searchParams.get('pageNumber'))
+  const [nameDiamond, setNameDiamond] = useState(searchParams.get('name'))
+  const [PageSize, setPageSize] = useState(12)
   const [StartPrice, setStartPrice] = useState(null)
   const [EndPrice, setEndPrice] = useState(null)
   const [Price, setPrice] = useState(null)
@@ -29,9 +32,30 @@ export default function GetPageDiamond() {
   const [valueClarity, setValueClarity] = useState([0, dataClarity.length - 1])
   const [valueCut, setValueCut] = useState([0, dataCut.length - 1])
   const navigate = useNavigate()
-  const [order, setOrder] = useState({ OrderByDesc: null, SortBy: '' });
+  const [order, setOrder] = useState({ OrderByDesc: searchParams.get('OrderBy'), SortBy: '' })
+
+  const handleChangeNameDiamond = (value) => {
+    setData(null)
+    setNameDiamond(value)
+    navigate(`/diamondPage?pageNumber=1&OrderBy=${order.OrderByDesc}&name=${value}`)
+    setTriggerRead(prev => !prev)
+  }
+
+  const debounce = (func, delay) => {
+    let debounceTimer
+    return function () {
+      const context = this
+      const args = arguments
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(() => func.apply(context, args), delay)
+    }
+  }
+
+  const debouncedHandleChangeNameDiamond = debounce(handleChangeNameDiamond, 500)
 
   const handleChangeOrder = (value, type) => {
+    setData(null)
+    navigate(`/diamondPage?pageNumber=1&OrderBy=${value}&name=${nameDiamond}`)
     if (value === null) {
       setOrder({ OrderByDesc: null, SortBy: '' })
     } else {
@@ -63,23 +87,23 @@ export default function GetPageDiamond() {
   }, 500)
 
   const handleChangeClarity = debounce((newValue) => {
-    setValueClarity(newValue);
-    setTriggerRead(prev => !prev);
+    setValueClarity(newValue)
+    setTriggerRead(prev => !prev)
   }, 500)
 
   const handleChangeCut = debounce((newValue) => {
-    setValueCut(newValue);
-    setTriggerRead(prev => !prev);
+    setValueCut(newValue)
+    setTriggerRead(prev => !prev)
   }, 500)
 
   const handleChangeCaratWeight = debounce((newValue) => {
-    setDataCaratWeightStart(Number(newValue[0]).toFixed(1));
-    setDataCaratWeightEnd(Number(newValue[1]).toFixed(1));
-    setTriggerRead(prev => !prev);
+    setDataCaratWeightStart(Number(newValue[0]).toFixed(1))
+    setDataCaratWeightEnd(Number(newValue[1]).toFixed(1))
+    setTriggerRead(prev => !prev)
   }, 500)
 
   const handlePageChange = (event, value) => {
-    navigate(`/diamondPage/${value}`);
+    navigate(`/diamondPage?pageNumber=${value}&OrderBy=${order.OrderByDesc}`)
     setPageNumber(value)
     setTriggerRead(prev => !prev)
   }
@@ -90,7 +114,7 @@ export default function GetPageDiamond() {
 
   const params = {
     queryDTO: {
-      PageNumber: PageNumberFromURL,
+      PageNumber: PageNumber,
       PageSize: PageSize,
       ...(StartPrice != null && { StartPrice: StartPrice }),
       ...(EndPrice != null && { EndPrice: EndPrice }),
@@ -101,6 +125,7 @@ export default function GetPageDiamond() {
       ...(valueCut !== null && { Cuts: selectedCut }),
       ...(dataCaratWeightStart !== null && { StartCaratWeight: dataCaratWeightStart }),
       ...(dataCaratWeightEnd !== null && { EndCaratWeight: dataCaratWeightEnd }),
+      ...(nameDiamond !== null && { Name: nameDiamond }),
     },
   }
 
@@ -160,22 +185,24 @@ export default function GetPageDiamond() {
       Object.entries(params.queryDTO).forEach(([key, value]) => {
         if (key === 'Colors' && Array.isArray(value)) { // Check if value is an array
           value.forEach((id) => { // Iterate over the array
-            queryString.append(`${key}`, id);
+            queryString.append(`${key}`, id)
           })
         } else if (key === 'Clarities' && Array.isArray(value)) {
           value.forEach((id) => {
-            queryString.append(`${key}`, id);
+            queryString.append(`${key}`, id)
           })
         } else if (key === 'Cuts' && Array.isArray(value)) {
           value.forEach((id) => {
-            queryString.append(`${key}`, id);
+            queryString.append(`${key}`, id)
           })
         } else if ((key === 'StartPrice' || key === 'EndPrice') && !Array.isArray(value)) {
-          queryString.append(`${key}`, value);
+          queryString.append(`${key}`, value)
         } else if ((key === 'StartCaratWeight' || key === 'EndCaratWeight') && !Array.isArray(value)) {
-          queryString.append(`${key}`, value);
+          queryString.append(`${key}`, value)
+        } else if (key === 'Name') {
+          queryString.append(`${key}`, value)
         } else {
-          queryString.append(`queryDTO.${key}`, value);
+          queryString.append(`queryDTO.${key}`, value)
         }
       })
       const url = createApi(`Diamond/GetPagedDiamonds?${queryString.toString()}`)
@@ -219,7 +246,7 @@ export default function GetPageDiamond() {
         justifyContent: 'center',
         width: '100%',
       }}>
-        <Grid xs={12} sm={12} md={4} sx={{
+        <Grid xs={12} sm={12} md={3} sx={{
           margin: '20px',
         }}>
           <FormControl fullWidth>
@@ -236,11 +263,10 @@ export default function GetPageDiamond() {
             >
               <MenuItem value={false}>Ascending</MenuItem>
               <MenuItem value={true}>Descending</MenuItem>
-              <MenuItem value={null}>Default</MenuItem>
             </Select>
           </FormControl>
         </Grid>
-        <Grid xs={12} sm={12} md={4} sx={{
+        <Grid xs={12} sm={12} md={3} sx={{
           margin: '20px',
         }}>
           <FormControl fullWidth>
@@ -266,6 +292,21 @@ export default function GetPageDiamond() {
               }
               <MenuItem value={null}>Default</MenuItem>
             </Select>
+          </FormControl>
+        </Grid>
+        <Grid xs={12} sm={12} md={3} sx={{
+          margin: '20px',
+        }}>
+          <FormControl fullWidth>
+            <TextField
+              label="Search"
+              variant="outlined"
+              onChange={(e) => debouncedHandleChangeNameDiamond(e.target.value)}
+              sx={{
+                width: '100%',
+              }}
+            >
+            </TextField>
           </FormControl>
         </Grid>
 
@@ -390,7 +431,7 @@ export default function GetPageDiamond() {
         <Box sx={{
         }}>
           <Grid container columnSpacing={9} rowSpacing={6} sx={{ width: '80vw' }} columns={{ xs: 12, sm: 8, md: 12 }}>
-            {data && data.map((item, index) =>
+            {data ? data.map((item, index) =>
               item.isDeleted ? null : (
                 <Grid item xs={12} sm={4} md={3} key={index} sx={{
                   width: '15vw',
@@ -477,6 +518,16 @@ export default function GetPageDiamond() {
                   </Card>
                 </Grid>
               )
+            ) : (
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '50vh',
+                width: '100%',
+              }}>
+                <CircularProgress />
+              </div>
             )}
           </Grid>
         </Box>

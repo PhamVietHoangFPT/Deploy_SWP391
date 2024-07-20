@@ -53,8 +53,8 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Home />}>
             <Route index element={<Homepage />} />
-            <Route path='diamondPage/:PageNumberFromURL' element={<DiamondPage />}></Route>
-            <Route path='product/:PageNumberFromURL' element={<Product />}></Route>
+            <Route path='diamondPage' element={<DiamondPage />}></Route>
+            <Route path='product' element={<Product />}></Route>
             <Route path='product/detail/:id' element={<ProductDetail></ProductDetail>}></Route>
             <Route path='diamond/detail/:id' element={<DiamondDetail></DiamondDetail>}></Route>
             <Route path='category/:id' element={<GetPageCategory></GetPageCategory>}></Route>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, Button } from '@mui/material'
+import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, CircularProgress } from '@mui/material'
 import { createApi } from '../../../Auth/AuthFunction'
 import CreatePromotion from './CreatePromotion'
 import DeletePromotion from './DeletePromotion'
@@ -34,47 +34,59 @@ export default function ShowAllPromotion() {
 
   return (
     <div className='contentAdminContainer'>
-      <div className='CRUDContainer '>
-        <div className='titleOfFormContainer'>
-          <h2>Promotion</h2>
-        </div>
-        <div>
-          <CreatePromotion onPromotionCreated={() => setTriggerRead(prev => !prev)}></CreatePromotion>
-        </div>
-        <div className='buttonContainer'>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {dataRow.map((item, index) => (
-                    <TableCell key={index} sx={{
-                      fontWeight: 'bold',
-                      fontSize: '20px'
-                    }}>
-                      {item}
-                    </TableCell>
-                  ))}
-                  <TableCell>Deleted</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {
-                  Array.isArray(dataPromotion) && dataPromotion.map((data, index) => (
-                    <TableRow key={data.id}>
-                      <TableCell>{data.id}</TableCell>
-                      <TableCell>{data.point}</TableCell>
-                      <TableCell>{data.discountPercentage}</TableCell>
-                      <TableCell><DeletePromotion id={data.id} onPromotionDeleted={() => setTriggerRead(prev => !prev)}></DeletePromotion></TableCell>
-                    </TableRow>
-                  ))
-                }
-              </TableBody>
-            </Table>
-          </TableContainer>
+      {dataPromotion ? (
+        <div className='CRUDContainer '>
+          <div className='titleOfFormContainer'>
+            <h2>Promotion</h2>
+          </div>
+          <div>
+            <CreatePromotion onPromotionCreated={() => setTriggerRead(prev => !prev)}></CreatePromotion>
+          </div>
+          <div className='buttonContainer'>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {dataRow.map((item, index) => (
+                      <TableCell key={index} sx={{
+                        fontWeight: 'bold',
+                        fontSize: '20px'
+                      }}>
+                        {item}
+                      </TableCell>
+                    ))}
+                    <TableCell>Deleted</TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    Array.isArray(dataPromotion) && dataPromotion.map((data, index) => (
+                      <TableRow key={data.id}>
+                        <TableCell>{data.id}</TableCell>
+                        <TableCell>{data.point}</TableCell>
+                        <TableCell>{data.discountPercentage}</TableCell>
+                        <TableCell><DeletePromotion id={data.id} onPromotionDeleted={() => setTriggerRead(prev => !prev)}></DeletePromotion></TableCell>
+                      </TableRow>
+                    ))
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>
 
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+          width: '100%',
+        }}>
+          <CircularProgress />
+        </div>
+      )}
     </div>
   )
 }

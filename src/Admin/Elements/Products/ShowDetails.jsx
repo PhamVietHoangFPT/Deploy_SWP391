@@ -73,7 +73,6 @@ export default function ShowDetails(props) {
                 <p>Name: {productDetails?.name}</p>
                 <p>Gender: {productDetails?.gender ? 'Male' : 'Female'}</p>
                 <p>Category: {productDetails?.category.name}</p>
-                {console.log(productDetails)}
                 {productDetails?.productParts?.length > 0 ? (
                   productDetails.productParts.map(part => (
                     <div key={part.id}>

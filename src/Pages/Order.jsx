@@ -7,11 +7,11 @@ import {
   Select, OutlinedInput, MenuItem,
   ListItemText
 } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import CircularProgress from '@mui/material/CircularProgress'
 import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined'
 import { jwtDecode } from 'jwt-decode'
 export default function Order() {
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState(null)
   const [openPayment, setOpenPayment] = useState(false)
   const [openDetail, setOpenDetail] = useState(false)
   const [orderDetail, setOrderDetail] = useState([])
@@ -173,125 +173,136 @@ export default function Order() {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
     }}>
-
-      <div style={{
-        paddingBottom: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      {order ? (
         <div style={{
+          paddingBottom: '20px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '20px',
         }}>
-          <h1>Order</h1>
-        </div>
-        <div style={styleOrderContainer}>
-          <FormControl sx={{
-            width: '100%',
-            marginBottom: '20px',
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '20px',
           }}>
-            <InputLabel>Status</InputLabel>
-            <Select
-              label="Status"
-              MenuProps={MenuProps}
-              value={statusSearch}
-              onChange={(e) => handleChangeStatusSearch(e.target.value)}
-              input={<OutlinedInput label="Status" />}
-            >
-              {statusChoice.map((name) => (
-                <MenuItem key={name} value={name}>
-                  <ListItemText primary={name} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TableContainer component={Paper} fullWidth>
-            <Table >
-              <TableHead sx={{
-                width: '100%'
-              }}>
-                <TableRow>
-                  {headerTable.map((item, index) => (
-                    <TableCell key={index} sx={{
-                      color: '#000',
-                      fontWeight: 'bold',
-                      fontSize: '20px',
-                    }}>
-                      {item}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody sx={{
-                width: '100%'
-              }}>
-
-                {order.items && order.items.map((item, index) => (
-                  <TableRow key={item.id}>
-                    <TableCell>
-                      {index + 1}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(item.createdDate).toLocaleDateString('en-GB')}
-                    </TableCell>
-                    <TableCell>
-                      ${item.totalPrice.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="contained"
-                        sx={{
-                          backgroundColor: statusColor[item.status] || 'black',
-                          '&:hover': {
-                            backgroundColor: statusColor[item.status] || 'black',
-                          }
-                        }}>
-                        {item.status}
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      {item.phone}
-                    </TableCell>
-                    <TableCell>
-                      {item.address}
-                    </TableCell>
-                    <TableCell>
-                      {item.status === 'Approved' ?
-                        <Button variant='contained' size='large' endIcon={<PaymentOutlinedIcon />} sx={styleButton} onClick={() => handleOpen(item.id)}>
-                          Pay now
-                        </Button> :
-                        <Button variant='contained' size='large' onClick={() => handleOpenDetail(item.id, item.status)} sx={{
-                          backgroundColor: '#f1c232',
-                          color: '#000',
-                          '&:hover': {
-                            backgroundColor: '#fff',
-                            color: '#000',
-                          }
-                        }}>
-                          Detail
-                        </Button>
-                      }
-                    </TableCell>
-
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <Stack sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+            <h1>Order</h1>
+          </div>
+          <div style={styleOrderContainer}>
+            <FormControl sx={{
+              width: '100%',
+              marginBottom: '20px',
             }}>
-              <Pagination count={TotalPage} page={PageNumber} onChange={handlePageChange} />
-            </Stack>
-          </TableContainer>
-        </div>
+              <InputLabel>Status</InputLabel>
+              <Select
+                label="Status"
+                MenuProps={MenuProps}
+                value={statusSearch}
+                onChange={(e) => handleChangeStatusSearch(e.target.value)}
+                input={<OutlinedInput label="Status" />}
+              >
+                {statusChoice.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TableContainer component={Paper} fullWidth>
+              <Table >
+                <TableHead sx={{
+                  width: '100%'
+                }}>
+                  <TableRow>
+                    {headerTable.map((item, index) => (
+                      <TableCell key={index} sx={{
+                        color: '#000',
+                        fontWeight: 'bold',
+                        fontSize: '20px',
+                      }}>
+                        {item}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody sx={{
+                  width: '100%'
+                }}>
 
-      </div>
+                  {order.items && order.items.map((item, index) => (
+                    <TableRow key={item.id}>
+                      <TableCell>
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(item.createdDate).toLocaleDateString('en-GB')}
+                      </TableCell>
+                      <TableCell>
+                        ${item.totalPrice.toLocaleString()}
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="contained"
+                          sx={{
+                            backgroundColor: statusColor[item.status] || 'black',
+                            '&:hover': {
+                              backgroundColor: statusColor[item.status] || 'black',
+                            }
+                          }}>
+                          {item.status}
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        {item.phone}
+                      </TableCell>
+                      <TableCell>
+                        {item.address}
+                      </TableCell>
+                      <TableCell>
+                        {item.status === 'Approved' ?
+                          <Button variant='contained' size='large' endIcon={<PaymentOutlinedIcon />} sx={styleButton} onClick={() => handleOpen(item.id)}>
+                            Pay now
+                          </Button> :
+                          <Button variant='contained' size='large' onClick={() => handleOpenDetail(item.id, item.status)} sx={{
+                            backgroundColor: '#f1c232',
+                            color: '#000',
+                            '&:hover': {
+                              backgroundColor: '#fff',
+                              color: '#000',
+                            }
+                          }}>
+                            Detail
+                          </Button>
+                        }
+                      </TableCell>
+
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Stack sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <Pagination count={TotalPage} page={PageNumber} onChange={handlePageChange} />
+              </Stack>
+            </TableContainer>
+          </div>
+
+        </div>
+      ) : (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+          width: '100%',
+        }}>
+          <CircularProgress />
+        </div>
+      )}
       <Modal
         open={openPayment}
         onClose={handleClose}

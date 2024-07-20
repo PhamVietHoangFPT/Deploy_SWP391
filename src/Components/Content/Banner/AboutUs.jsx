@@ -26,7 +26,7 @@ export default function AboutUs() {
 					</div>
 				</div>
 				<div className='col-6 contentBannerContainerAboutUs'>
-					<img src="src/assets/img/ImgAboutUs.png" alt="" className='imgBanner2' />
+					<img src="https://www.thearmchairtrader.com/wp-content/uploads/2022/09/diamond-mining-gems.jpg" alt="" className='imgBanner2' />
 				</div>
 			</div>
 
