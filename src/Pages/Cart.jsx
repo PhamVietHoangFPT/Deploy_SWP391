@@ -220,7 +220,12 @@ export default function Cart() {
 
   const validationSchema = Yup.object({
     address: Yup.string().required('Required'),
-    phoneNumber: Yup.string().required('Required'),
+    phoneNumber: Yup
+      .string()
+      .required('Required')
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .min(10, 'Must be exactly 10 digits')
+      .max(10, 'Must be exactly 10 digits')
   })
 
   const onSubmit = (values) => {
