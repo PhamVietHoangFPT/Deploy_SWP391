@@ -13,6 +13,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 export default function GetPageDiamond() {
+  const token = localStorage.getItem('token')
   const [searchParams] = useSearchParams()
   const [PageNumber, setPageNumber] = useState(searchParams.get('pageNumber'))
   const [nameDiamond, setNameDiamond] = useState(searchParams.get('name'))
@@ -490,31 +491,59 @@ export default function GetPageDiamond() {
                         </p>
                       </CardContent>
                     </Link>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      width: '100%',
-                      height: '15%',
-                    }}>
-                      <Button fullWidth onClick={() => addToCart(item)} sx={{
-                        color: 'black',
+                    {token ? (
+                      <div style={{
                         display: 'flex',
-                        justifyContent: 'center',
-                        height: '50px',
-                        backgroundColor: '#ad2a36',
-                        '&:hover': {
-                          backgroundColor: '#ad2a36',
-                        }
-                      }} size='large'
-                        variant='contained'
-                      >
-                        <ShoppingCartIcon fontSize='large' sx={{
+                        alignItems: 'flex-end',
+                        width: '100%',
+                        height: '15%',
+                      }}>
+                        <Button fullWidth onClick={() => addToCart(item)} sx={{
+                          color: 'black',
+                          display: 'flex',
+                          justifyContent: 'center',
                           height: '50px',
-                          color: '#fff',
-                          fontSize: '70px',
-                        }}></ShoppingCartIcon>
-                      </Button>
-                    </div>
+                          backgroundColor: '#ad2a36',
+                          '&:hover': {
+                            backgroundColor: '#ad2a36',
+                          }
+                        }} size='large'
+                          variant='contained'
+                        >
+                          <ShoppingCartIcon fontSize='large' sx={{
+                            height: '50px',
+                            color: '#fff',
+                            fontSize: '70px',
+                          }}></ShoppingCartIcon>
+                        </Button>
+                      </div>
+                    ) : (
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        width: '100%',
+                        height: '15%',
+                      }}>
+                        <Button fullWidth onClick={() => navigate('/login')} sx={{
+                          color: 'black',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          height: '50px',
+                          backgroundColor: '#ad2a36',
+                          '&:hover': {
+                            backgroundColor: '#ad2a36',
+                          }
+                        }} size='large'
+                          variant='contained'
+                        >
+                          <ShoppingCartIcon fontSize='large' sx={{
+                            height: '50px',
+                            color: '#fff',
+                            fontSize: '70px',
+                          }}></ShoppingCartIcon>
+                        </Button>
+                      </div>
+                    )}
                   </Card>
                 </Grid>
               )

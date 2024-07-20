@@ -11,8 +11,9 @@ import './ProductDetail.css';
 import { FormControl } from '@mui/material'
 import { createApi } from '../../Auth/AuthFunction'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useNavigate } from 'react-router-dom'
 export default function ProductDetail() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const { id } = useParams()
   const [openSize, setOpenSize] = useState(false)
   const [productDetail, setProductDetail] = useState(null)
@@ -391,9 +392,14 @@ export default function ProductDetail() {
                       Add to cart
                     </AddToCartButton>
                   ) : (
-                    <h4 style={{ color: '#ad2a36' }}>
-                      Please login to add to cart
-                    </h4>
+                    <AddToCartButton
+                      type='submit'
+                      variant='contained'
+                      size='large'
+                      onClick={() => navigate('/login')}
+                    >
+                      Add to cart
+                    </AddToCartButton>
                   )}
                   {responseStatus ? (responseStatus.toString().startsWith('2') ? (
                     <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">

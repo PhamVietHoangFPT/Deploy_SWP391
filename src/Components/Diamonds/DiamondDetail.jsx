@@ -9,8 +9,9 @@ import Button from '@mui/material/Button'
 import { FormControl, } from '@mui/material'
 import { createApi } from '../../Auth/AuthFunction'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useNavigate } from 'react-router-dom'
 export default function DiamondDetail() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const { id } = useParams()
   const [DiamondDetail, setDiamondDetail] = useState(null)
   const [currentTopImageIndex, setCurrentTopImageIndex] = useState(0)
@@ -232,9 +233,14 @@ export default function DiamondDetail() {
                       Add to cart
                     </AddToCartButton>
                   ) : (
-                    <h4 style={{ color: '#ad2a36' }}>
-                      Please login to add to cart
-                    </h4>
+                    <AddToCartButton
+                      type='submit'
+                      variant='contained'
+                      size='large'
+                      onClick={() => navigate('/login')}
+                    >
+                      Add to cart
+                    </AddToCartButton>
                   )}
                 </FormControl>
                 {responseStatus ? (responseStatus.toString().startsWith('2') ? (
