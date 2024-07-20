@@ -12,8 +12,8 @@ import { createApi } from '../../Auth/AuthFunction'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function GetPageDiamond() {
   const { PageNumberFromURL } = useParams()
-  const [PageNumber, setPageNumber] = useState(1)
-  const [PageSize, setPageSize] = useState(12)
+  const [PageNumber, setPageNumber] = useState(PageNumberFromURL)
+  const [PageSize, setPageSize] = useState(5)
   const [StartPrice, setStartPrice] = useState(null)
   const [EndPrice, setEndPrice] = useState(null)
   const [Price, setPrice] = useState(null)
@@ -25,7 +25,6 @@ export default function GetPageDiamond() {
   const dataCut = ["Excellent", "VeryGood", "Good", "Fair", "Poor"].reverse()
   const [dataCaratWeightStart, setDataCaratWeightStart] = useState(0.1)
   const [dataCaratWeightEnd, setDataCaratWeightEnd] = useState(10.2)
-  const [valueCaratWeight, setValueCaratWeight] = useState([0.1, 10.2])
   const [valueColor, setValueColor] = useState([0, dataColors.length - 1])
   const [valueClarity, setValueClarity] = useState([0, dataClarity.length - 1])
   const [valueCut, setValueCut] = useState([0, dataCut.length - 1])
@@ -91,7 +90,7 @@ export default function GetPageDiamond() {
 
   const params = {
     queryDTO: {
-      PageNumber: PageNumber,
+      PageNumber: PageNumberFromURL,
       PageSize: PageSize,
       ...(StartPrice != null && { StartPrice: StartPrice }),
       ...(EndPrice != null && { EndPrice: EndPrice }),
