@@ -28,9 +28,8 @@ const News = () => {
             <img src={'https://wallpapers.com/images/hd/diamonds-background-9wzbbafui52z97mp.jpg'} alt="news" />
         </div>
         <div className="news-text">
-            <h2>BỘ SƯU TẬP NHẪN KIM CƯƠNG</h2>
-            <p>Đẳng cấp & Tinh tế đến từng chi tiết</p>
-            <button onClick={() => navigate(`Service1`)} className="news-button">THAM KHẢO GIÁ</button>
+            <h2>RING SIZE GUIDE</h2>
+            <button onClick={() => navigate(`Service1`)} className="news-button">CLICK HERE</button>
         </div>
     </div>
     <div className="news">
@@ -38,9 +37,8 @@ const News = () => {
             <img src={'https://wallpapers.com/images/hd/diamonds-background-9wzbbafui52z97mp.jpg'} alt="news" />
         </div>
         <div className="news-text">
-            <h2>KIM CƯƠNG GIA</h2>
-            <p>Kim cương thiên nhiên, nhập khẩu chính ngạch</p>
-            <button onClick={() => navigate(`Service2`)} className="news-button">THAM KHẢO GIÁ</button>
+            <h2>DIAMOND CARE GUIDE</h2>
+            <button onClick={() => navigate(`Service2`)} className="news-button">CLICK HERE</button>
         </div>
     </div>
     </>
