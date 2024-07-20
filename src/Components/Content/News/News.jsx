@@ -21,7 +21,7 @@ const News = () => {
     return (
     <>
     <div className='news-title'>
-        <h1>Dịch vụ khách hàng</h1>
+        <h1>CUSTOMER SERVICES</h1>
     </div>
     <div className="news">
         <div className="news-image">
