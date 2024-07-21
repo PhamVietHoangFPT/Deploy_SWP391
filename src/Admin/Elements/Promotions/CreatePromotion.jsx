@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { createApi } from '../../../Auth/AuthFunction'
+import React, { useState } from 'react'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 import { Modal, Button, Box, TextField, FormControl, Alert } from '@mui/material'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
@@ -19,8 +19,8 @@ export default function CreatePromotion(props) {
       },
       body: formData
     })
-      .then(response => response.json())
-      .then(() => {
+      .then(response => {
+        checkApiStatus(response)
         props.onPromotionCreated()
         handleClose()
       })
@@ -58,7 +58,6 @@ export default function CreatePromotion(props) {
       discountPercentage: parseFloat(values.discountPercentage)
     }
     createPromotion(formatValues)
-
   }
 
   return (
@@ -93,51 +92,42 @@ export default function CreatePromotion(props) {
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
-              {({ setFieldValue, values, handleChange }) => {
+              {({ values, handleChange }) => {
                 return (
                   <Form>
-                    <div className='row'>
-                      <div className='col'>
-                        <FormControl fullWidth>
-                          <Field
-                            name="point"
-                            as={TextField}
-                            id="point"
-                            label="Point"
-                            type="number"
-                            onChange={handleChange}
-                            value={values.point}
-                            MenuProps={MenuProps}
-                          />
-                          <ErrorMessage name="point">
-                            {msg => <Alert severity="error">{msg}</Alert>}
-                          </ErrorMessage>
-                        </FormControl>
-                      </div>
+                    <div>
+                      <FormControl fullWidth>
+                        <Field
+                          name="point"
+                          as={TextField}
+                          id="point"
+                          label="Point"
+                          type="number"
+                          onChange={handleChange}
+                          value={values.point}
+                          MenuProps={MenuProps}
+                        />
+                        <ErrorMessage name="point">
+                          {msg => <Alert severity="error">{msg}</Alert>}
+                        </ErrorMessage>
+                      </FormControl>
                     </div> <br />
-                    <div className='row'>
-                      <div className='col'>
-                        <FormControl fullWidth>
-                          <Field
-                            name="discountPercentage"
-                            as={TextField}
-                            id="discountPercentage"
-                            label="Discount percentage"
-                            onChange={handleChange}
-                            value={values.discountPercentage}
-                            MenuProps={MenuProps}
-                          />
-                          <ErrorMessage name="discountPercentage">
-                            {msg => <Alert severity="error">{msg}</Alert>}
-                          </ErrorMessage>
-                        </FormControl>
-                      </div>
-                      <div className='col'>
-
-                      </div>
-                      <div className='col'>
-
-                      </div>
+                    <div>
+                      <FormControl fullWidth>
+                        <Field
+                          name="discountPercentage"
+                          as={TextField}
+                          id="discountPercentage"
+                          label="Discount percentage"
+                          type="number"
+                          onChange={handleChange}
+                          value={values.discountPercentage}
+                          MenuProps={MenuProps}
+                        />
+                        <ErrorMessage name="discountPercentage">
+                          {msg => <Alert severity="error">{msg}</Alert>}
+                        </ErrorMessage>
+                      </FormControl>
                     </div>
                     <div style={{
                       display: 'flex',

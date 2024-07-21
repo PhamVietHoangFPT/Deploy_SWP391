@@ -8,7 +8,7 @@ export default function ShowAllPromotion() {
   const role = localStorage.getItem('role')
   const [dataPromotion, setDataPromotion] = useState(null)
   const [triggerRead, setTriggerRead] = useState(false)
-  const dataRow = ['id', 'Point', 'Discount Percentage',]
+  const dataRow = ['#', 'Point', 'Discount Percentage',]
   useEffect(() => {
     if (role !== '1') {
       navigate('/admin')
@@ -26,10 +26,11 @@ export default function ShowAllPromotion() {
     })
       .then(response => response.json())
       .then(responseData => {
-        setDataPromotion(responseData)
+        setDataPromotion(responseData.sort((a, b) => a.point - b.point))
       })
       .catch((error) => console.error('Error:', error))
   }, [triggerRead])
+
 
 
   return (
@@ -63,7 +64,7 @@ export default function ShowAllPromotion() {
                   {
                     Array.isArray(dataPromotion) && dataPromotion.map((data, index) => (
                       <TableRow key={data.id}>
-                        <TableCell>{data.id}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell>{data.point}</TableCell>
                         <TableCell>{data.discountPercentage}</TableCell>
                         <TableCell><DeletePromotion id={data.id} onPromotionDeleted={() => setTriggerRead(prev => !prev)}></DeletePromotion></TableCell>

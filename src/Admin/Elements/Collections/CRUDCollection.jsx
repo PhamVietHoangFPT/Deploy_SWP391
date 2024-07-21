@@ -8,9 +8,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 export default function CRUDCollections() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const pageNumber = searchParams.get('pageNumber') - 1 || 0
   const [data, setData] = useState(null)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(searchParams.get('pageNumber') - 1 || 0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [triggerRead, setTriggerRead] = useState(false);
 

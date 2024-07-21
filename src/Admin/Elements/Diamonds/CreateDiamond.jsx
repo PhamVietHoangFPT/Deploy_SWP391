@@ -7,7 +7,7 @@ import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend'
 import { styled } from '@mui/material/styles'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -53,10 +53,6 @@ export default function CreateDiamond(props) {
     setImage((prevImages) => [...prevImages, ...e.target.files])
   }
 
-  const handleClear = () => {
-    setImage([])
-  }
-
   const handleDeleteImage = (index) => {
     setImage((currentImages) => currentImages.filter((_, i) => i !== index))
   }
@@ -91,12 +87,11 @@ export default function CreateDiamond(props) {
       },
       body: formData
     }).then(response => {
-      setStatusCodeCreate(response.status)
+      checkApiStatus(response)
       setOpen(false)
       setDataCertificate(null)
-      return response.json()
+      props.onDiamondCreated()
     })
-      .then(responseData => props.onDiamondCreated())
   }
 
   const getCertificate = (values) => {

@@ -26,7 +26,7 @@ export default function ShowAllDiamond() {
   const [valueColor, setValueColor] = useState([0, dataColors.length - 1])
   const [valueClarity, setValueClarity] = useState([0, dataClarity.length - 1])
   const [valueCut, setValueCut] = useState([0, dataCut.length - 1])
-  const [order, setOrder] = useState({ OrderByDesc: null, SortBy: '' })
+  const [order, setOrder] = useState({ OrderByDesc: searchParams.get('OrderBy'), SortBy: '' })
   const [Price, setPrice] = useState(null)
   const role = localStorage.getItem('role')
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ export default function ShowAllDiamond() {
 
   const handleChangeOrder = (value, type) => {
     setData(null)
-    navigate(`/admin/diamond?pageNumber=1&name=${name}`)
+    navigate(`/admin/diamond?pageNumber=1&name=${name}&OrderBy=${value}`)
     if (value === null) {
       setOrder({ OrderByDesc: null, SortBy: '' })
     } else {
@@ -260,7 +260,6 @@ export default function ShowAllDiamond() {
                   >
                     <MenuItem value={false}>Ascending</MenuItem>
                     <MenuItem value={true}>Descending</MenuItem>
-                    <MenuItem value={null}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

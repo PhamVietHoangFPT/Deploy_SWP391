@@ -36,6 +36,10 @@ import ShowAllPromotion from './Admin/Elements/Promotions/Promotion'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Service1 from './Components/Content/NewsDetail/ServiceDetail1'
 import Service2 from './Components/Content/NewsDetail/ServiceDetail2'
+import CustomerPolicy from './Pages/CustomerPolicy'
+import FAQ from './Pages/FAQ'
+import RefundPolicy from './Pages/RefundPolicy'
+import ShippingPolicy from './Pages/ShippingPolicy'
 export default function App() {
   const clientId = "629470625241-289cmgv2sgrusl96bhmhsnpjjbr0m98b.apps.googleusercontent.com";
   useEffect(() => {
@@ -67,6 +71,10 @@ export default function App() {
             <Route path='/policyPage' element={<PolicyPage></PolicyPage>}></Route>
             <Route path='/Service1' element={<Service1></Service1>}></Route>
             <Route path='/Service2' element={<Service2></Service2>}></Route>
+            <Route path='/customerPolicy' element={<CustomerPolicy></CustomerPolicy>}></Route>
+            <Route path='/faq' element={<FAQ></FAQ>}></Route>
+            <Route path='/refundPolicy' element={<RefundPolicy></RefundPolicy>}></Route>
+            <Route path='/shippingPolicy' element={<ShippingPolicy></ShippingPolicy>}></Route>
           </Route>
 
           <Route path='/pdfWarranty/:id' element={<PdfFileWarranty />}></Route>

@@ -5,7 +5,7 @@ import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend'
 import Modal from '@mui/material/Modal'
 import { Form, Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 export default function CreateDiamondCase(props) {
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
@@ -27,8 +27,8 @@ export default function CreateDiamondCase(props) {
 			},
 			body: JSON.stringify(data)
 		})
-			.then(response => response.json())
-			.then(responseData => {
+			.then(response => checkApiStatus(response))
+			.then(() => {
 				props.onCollectionCreated()
 				handleClose()
 			})

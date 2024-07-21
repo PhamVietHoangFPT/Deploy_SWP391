@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 import {
   TableContainer, Table, TableHead, TableBody,
   TableCell, TableRow, Button, Modal,
@@ -106,10 +106,10 @@ export default function OrderAdmin() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
-    }).then(response => response.json())
-      .then(data => {
-        setTriggerRead(prev => !prev);
-      })
+    }).then(response => {
+      checkApiStatus(response)
+      setTriggerRead(prev => !prev)
+    })
   }
 
   const getOrderDetail = (id) => {

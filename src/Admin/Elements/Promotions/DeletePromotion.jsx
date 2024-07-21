@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 
 export default function DeletePromotion(props) {
 
@@ -13,7 +13,10 @@ export default function DeletePromotion(props) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
-    }).then(() => { props.onPromotionDeleted() })
+    }).then((response) => {
+      checkApiStatus(response)
+      props.onPromotionDeleted()
+    })
   }
 
   return (

@@ -31,7 +31,7 @@ export default function NavbarAdmin() {
 	}
 
 	function goToDiamond() {
-		navigate('/admin/diamond?pageNumber=1&name=')
+		navigate('/admin/diamond?pageNumber=1&name=&OrderBy=false')
 	}
 
 	function goToDiamondCase() {

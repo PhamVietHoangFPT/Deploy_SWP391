@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Footer() {
   const navigate = useNavigate()
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHoveredPolicyPage, setIsHoveredPolicyPage] = useState(false)
+  const [isHoveredCustomerPolicy, setIsHoveredCustomerPolicy] = useState(false)
+  const [isHoveredRefundPolicy, setIsHoveredRefundPolicy] = useState(false)
+  const [isHoveredShippingPolicy, setIsHoveredShippingPolicy] = useState(false)
+  const [isHoveredFAQ, setIsHoveredFAQ] = useState(false)
   return (
     <div style={{
       backgroundColor: '#001529',
@@ -19,14 +23,69 @@ export default function Footer() {
         <div>
           <h1
             onClick={() => navigate('/policyPage')}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => setIsHoveredPolicyPage(true)}
+            onMouseLeave={() => setIsHoveredPolicyPage(false)}
             style={{
               cursor: 'pointer',
-              textDecoration: isHovered ? 'underline' : 'none'
-            }}>
+              textDecoration: isHoveredPolicyPage ? 'underline' : 'none'
+            }}
+          >
             Policy Page
           </h1>
+          <div>
+            <ul>
+              <li>
+                <h5
+                  onClick={() => navigate('/customerPolicy')}
+                  onMouseEnter={() => setIsHoveredCustomerPolicy(true)}
+                  onMouseLeave={() => setIsHoveredCustomerPolicy(false)}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration: isHoveredCustomerPolicy ? 'underline' : 'none'
+                  }}
+                >
+                  Customer Policy
+                </h5>
+              </li>
+              <li>
+                <h5
+                  onClick={() => navigate('/refundPolicy')}
+                  onMouseEnter={() => setIsHoveredRefundPolicy(true)}
+                  onMouseLeave={() => setIsHoveredRefundPolicy(false)}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration: isHoveredRefundPolicy ? 'underline' : 'none'
+                  }}
+                >
+                  Refund Policy
+                </h5>
+              </li>
+              <li>
+                <h5
+                  onClick={() => navigate('/shippingPolicy')}
+                  onMouseEnter={() => setIsHoveredShippingPolicy(true)}
+                  onMouseLeave={() => setIsHoveredShippingPolicy(false)}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration: isHoveredShippingPolicy ? 'underline' : 'none'
+                  }}
+                >Shipping Policy</h5>
+              </li>
+              <li>
+                <h5
+                  onClick={() => navigate('/faq')}
+                  onMouseEnter={() => setIsHoveredFAQ(true)}
+                  onMouseLeave={() => setIsHoveredFAQ(false)}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration: isHoveredFAQ ? 'underline' : 'none'
+                  }}
+                >
+                  FAQ
+                </h5>
+              </li>
+            </ul>
+          </div>
         </div>
         <div>
           <div>

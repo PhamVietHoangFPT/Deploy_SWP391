@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 
 export default function DeleteVoucher(props) {
 
@@ -13,7 +13,10 @@ export default function DeleteVoucher(props) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
-    }).then(() => { props.onVoucherDeleted() })
+    }).then((response) => {
+      checkApiStatus(response)
+      props.onVoucherDeleted()
+    })
   }
 
   return (

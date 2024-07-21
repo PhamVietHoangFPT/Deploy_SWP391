@@ -10,7 +10,7 @@ import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend'
 import { styled } from '@mui/material/styles'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { createApi } from '../../../Auth/AuthFunction';
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction';
 
 export default function CreateProduct(props) {
   const [image, setImage] = useState([])
@@ -188,6 +188,7 @@ export default function CreateProduct(props) {
       },
       body: JSON.stringify(productProperties)
     }).then(responseData => {
+      checkApiStatus(responseData)
       props.onProductCreated()
       handleClose()
       handleClear()

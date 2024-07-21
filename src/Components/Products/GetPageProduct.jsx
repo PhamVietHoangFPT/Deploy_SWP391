@@ -296,10 +296,12 @@ export default function GetPageProduct() {
                 }
               >
                 {Category && Category.map((item, index) => (
-                  <MenuItem key={index} value={item.id}>
-                    <Checkbox checked={CategoryIds.indexOf(item.id) > -1} />
-                    <ListItemText primary={item.name} />
-                  </MenuItem>
+                  item.isDeleted ? null : (
+                    <MenuItem key={index} value={item.id}>
+                      <Checkbox checked={CategoryIds.indexOf(item.id) > -1} />
+                      <ListItemText primary={item.name} />
+                    </MenuItem>
+                  )
                 ))}
               </Select>
             </FormControl>
@@ -321,10 +323,12 @@ export default function GetPageProduct() {
                 }
               >
                 {dataCollection && dataCollection.map((item, index) => (
-                  <MenuItem key={index} value={item.id}>
-                    <Checkbox checked={CollectionIds.indexOf(item.id) > -1} />
-                    <ListItemText primary={item.name} />
-                  </MenuItem>
+                  item.isDeleted ? null : (
+                    <MenuItem key={index} value={item.id}>
+                      <Checkbox checked={CollectionIds.indexOf(item.id) > -1} />
+                      <ListItemText primary={item.name} />
+                    </MenuItem>
+                  )
                 ))}
               </Select>
             </FormControl>
@@ -346,10 +350,12 @@ export default function GetPageProduct() {
                 }
               >
                 {dataDiamond && dataDiamond.map((item, index) => (
-                  <MenuItem key={index} value={item.id}>
-                    <Checkbox checked={DiamondIds.indexOf(item.id) > -1} />
-                    <ListItemText primary={item.name} />
-                  </MenuItem>
+                  item.isDeleted ? null : (
+                    <MenuItem key={index} value={item.id}>
+                      <Checkbox checked={DiamondIds.indexOf(item.id) > -1} />
+                      <ListItemText primary={item.name} />
+                    </MenuItem>
+                  )
                 ))}
               </Select>
             </FormControl>

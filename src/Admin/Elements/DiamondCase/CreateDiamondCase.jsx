@@ -5,19 +5,13 @@ import CloseIcon from '@mui/icons-material/Close'
 import Modal from '@mui/material/Modal'
 import { Form, Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
-import { createApi } from '../../../Auth/AuthFunction'
+import { createApi, checkApiStatus } from '../../../Auth/AuthFunction'
 export default function CreateDiamondCase(props) {
 	const [data, setData] = useState(null)
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => {
 		setOpen(false)
-		setData(null)
-	}
-
-	const handleClear = () => {
-		// setName('')
-		// setData(null)
 	}
 
 	function Create(values) {
@@ -36,9 +30,8 @@ export default function CreateDiamondCase(props) {
 			},
 			body: JSON.stringify(data)
 		})
-			.then(response => response.json())
-			.then(responseData => {
-				setData(responseData)
+			.then(response => {
+				checkApiStatus(response)
 				handleClose()
 				props.onDiamondCaseCreated()
 			})

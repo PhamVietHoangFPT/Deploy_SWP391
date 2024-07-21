@@ -1,11 +1,11 @@
-// src/Pages/PolicyPage.jsx
+
 import React from 'react';
 
-const PolicyPage = () => {
+const CustomerPolicy = () => {
     return (
         <div className="policy-container">
             <h1>Personal Data Processing Policy</h1>
-            
+
             <section>
                 <h2>1. Introduction</h2>
                 <p>We value your privacy and are committed to protecting your personal data. This policy outlines how we handle and process your personal information.</p>
@@ -44,4 +44,4 @@ const PolicyPage = () => {
     );
 };
 
-export default PolicyPage;
+export default CustomerPolicy;

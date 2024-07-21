@@ -2,7 +2,7 @@ import { Button, Box, Modal, TextField, Select, MenuItem, FormControl, InputLabe
 import UpdateIcon from '@mui/icons-material/Update'
 import SendIcon from '@mui/icons-material/Send'
 import React, { useEffect, useState } from 'react'
-import { createApi } from '../../../Auth/AuthFunction'
+import { createApi, checkApiStatus } from '../../../Auth/AuthFunction'
 import EditIcon from '@mui/icons-material/Edit'
 import { Form, Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
@@ -50,11 +50,10 @@ export default function UpdateCategory(props) {
       },
       body: JSON.stringify(Data)
     })
-      .then(response => response.json())
-      .then(data => {
+      .then(response => checkApiStatus(response))
+      .then(() => {
         props.onUpdateCategory()
         handleClose()
-
       })
   }
 

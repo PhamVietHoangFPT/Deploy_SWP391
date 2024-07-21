@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { createApi } from '../../../Auth/AuthFunction'
+import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 
 export default function UpdateProduct(props) {
   const [image, setImage] = useState([])
@@ -193,6 +193,7 @@ export default function UpdateProduct(props) {
       },
       body: JSON.stringify(productProperties)
     }).then(responseData => {
+      checkApiStatus(responseData)
       props.onProductUpdated()
       setStatusUpdate(responseData.status)
     })

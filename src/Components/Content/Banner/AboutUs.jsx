@@ -10,7 +10,7 @@ export default function AboutUs() {
 					</h1>
 
 					<div id='storeName'>
-						DIAMOND OFFICIAL STORE
+						DIAMOND STORE
 					</div>
 					<div>
 						Diamond & Jewelry
@@ -22,7 +22,7 @@ export default function AboutUs() {
 						Our customers can be completely assured of the quality, value, and price of each diamond when purchasing from Diamond Official Store. Integrity and responsibility in business are our foremost principles!
 					</div>
 					<div>
-						Let DIAMOND OFFICIAL STORE elevate your life!
+						Let DIAMOND STORE elevate your life!
 					</div>
 				</div>
 				<div className='col-6 contentBannerContainerAboutUs'>

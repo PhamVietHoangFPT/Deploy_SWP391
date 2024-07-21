@@ -177,7 +177,7 @@ export default function ProductDetail() {
                   }}>
                     <img src={imageMain} style={{
                       width: '100%', // Suitable for mobile
-                      maxWidth: '600px',
+                      maxWidth: '450px',
                       borderRadius: '20px',
                     }} />
                   </div>
