@@ -238,6 +238,7 @@ export default function GetPageDiamond() {
     <div style={{
       background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
       backgroundSize: 'cover',
+      minHeight: '100vh',
     }}>
       <Grid container spacing={2} sx={{
         paddingTop: '20px',
