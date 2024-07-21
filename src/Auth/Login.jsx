@@ -184,11 +184,10 @@ export default function Login() {
                 {
                   responseStatus.toString().startsWith('4') && <Alert severity="error" sx={styleAlert}>{error}</Alert>
                 }
-                <FormControl>
+                <FormControl fullWidth>
                   <div className='row'>
                     <div className='col-12'>
                       <Field
-                        fullWidth
                         as={TextField}
                         type="text"
                         name="email"
@@ -221,9 +220,7 @@ export default function Login() {
                   display: 'flex',
                   justifyContent: 'flex-start',
                 }}>
-                  <Link to="/" className='linkForgotPassword' >
-                    Forgot password?
-                  </Link>
+
                 </div>
                 <Button type="submit"
                   className='submitButton'
