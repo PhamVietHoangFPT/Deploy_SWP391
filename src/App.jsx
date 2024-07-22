@@ -68,7 +68,7 @@ export default function App() {
             <Route path='/order' element={<Order></Order>}></Route>
             <Route path='/payment/success' element={<PaymentSuccessful></PaymentSuccessful>}></Route>
             <Route path='/payment/cancel' element={<PaymentFail></PaymentFail>}></Route>
-            <Route path='/terms' element={<PolicyPage></PolicyPage>}></Route>
+            <Route path='/DiamondPolicy' element={<PolicyPage></PolicyPage>}></Route>
             <Route path='/Service1' element={<Service1></Service1>}></Route>
             <Route path='/Service2' element={<Service2></Service2>}></Route>
             <Route path='/customerPolicy' element={<CustomerPolicy></CustomerPolicy>}></Route>

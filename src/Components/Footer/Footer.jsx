@@ -45,24 +45,11 @@ export default function Footer() {
               margin: 0,
             }}>
               <li>
-                <h1
-                  onClick={() => navigate('/terms')}
-                  onMouseEnter={() => handleMouseEnter('terms')}
-                  onMouseLeave={handleMouseLeave}
-                  style={{
-                    cursor: 'pointer',
-                    textDecoration: hovered === 'terms' ? 'underline' : 'none',
-                    color: '#c0954a',
-                    marginBottom: '15px',
-                    fontSize: '1.8em',
-                    fontWeight: 'bold',
-                    transition: 'color 0.3s',
-                  }}
-                >
+                <h1 style={{ fontSize: '1.8em', color: '#c0954a', fontWeight: 'bold', marginBottom: '15px' }}>
                   Terms
                 </h1>
               </li>
-              {['Customer Policy', 'Refund Policy', 'Shipping Policy', 'FAQ'].map((text) => (
+              {['Diamond Policy', 'Customer Policy', 'Refund Policy', 'Shipping Policy', 'FAQ'].map((text) => (
                 <li key={text}>
                   <h5
                     onClick={() => navigate(`/${text.toLowerCase().replace(' ', '')}`)}
