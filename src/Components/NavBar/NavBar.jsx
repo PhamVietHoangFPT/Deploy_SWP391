@@ -53,6 +53,7 @@ export default function Navbar() {
 		width: '-webkit-fill-available',
 		borderRadius: '50px',
 		height: '100%',
+		fontSize: '20px',
 		backgroundColor: '#001529',
 		':hover': {
 			backgroundColor: '#6f6f6f', // Adjust the color as needed
@@ -60,9 +61,10 @@ export default function Navbar() {
 	}
 
 	const paddingStyle = {
-		padding: 0,
+		padding: 5,
 		width: '100%',
 		height: '100%',
+		margin: 5,
 		backgroundColor: '#001529',
 		':hover': {
 			backgroundColor: '#004085', // Adjust the color as needed
@@ -153,7 +155,7 @@ export default function Navbar() {
 				</Menu.SubMenu>
 				<Menu.Item style={paddingStyle}>
 					<Button onClick={() => navigate('/cart')} sx={buttonStyle}>
-						<ShoppingCartIcon sx={{ fontSize: '30px' }}></ShoppingCartIcon>
+						<ShoppingCartIcon sx={{ fontSize: '35px' }}></ShoppingCartIcon>
 					</Button>
 				</Menu.Item>
 				{token ? (
@@ -183,6 +185,10 @@ export default function Navbar() {
 
 						<Menu.Item key="logout" style={paddingStyle}>
 							<Button onClick={Logout} sx={{
+								width: '-webkit-fill-available',
+								borderRadius: '50px',
+								height: '100%',
+								fontSize: '20px',
 								color: '#fff',
 								width: '-webkit-fill-available',
 							}} color='error' variant="contained">Log out</Button>
