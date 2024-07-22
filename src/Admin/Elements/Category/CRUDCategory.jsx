@@ -16,7 +16,7 @@ export default function CRUDCategory() {
 	const pageNumber = searchParams.get('pageNumber') - 1 || 0
 	const [data, setData] = useState(null)
 	const [page, setPage] = useState(pageNumber)
-	const [rowsPerPage, setRowsPerPage] = useState(9)
+	const [rowsPerPage, setRowsPerPage] = useState(10)
 	const [triggerRead, setTriggerRead] = useState(false);
 
 	const handleChangePage = (event, newPage) => {
@@ -98,7 +98,7 @@ export default function CRUDCategory() {
 						</Table>
 					</TableContainer>
 					<TablePagination
-						rowsPerPageOptions={[9]}
+						rowsPerPageOptions={[10, 20, 30]}
 						component="div"
 						count={Array.isArray(data) && (data.length)}
 						rowsPerPage={rowsPerPage}
