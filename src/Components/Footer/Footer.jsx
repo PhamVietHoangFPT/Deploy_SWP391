@@ -13,7 +13,7 @@ export default function Footer() {
     <footer style={{
       backgroundColor: '#001529',
       color: '#fff',
-      padding: '30px 20px',
+      padding: '30px 20px 0 20px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -132,9 +132,6 @@ export default function Footer() {
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
-            <div style={{ fontSize: '1.2em' }}>
-              <small>© {new Date().getFullYear()} Diamond Shop</small>
-            </div>
           </div>
 
           {/* About Us with Image */}
@@ -164,6 +161,17 @@ export default function Footer() {
             </p>
           </div>
         </div>
+      </div>
+      <div style={{
+        fontSize: '1.2em',
+        padding: '20px',
+        borderTop: '2px solid #c0954a',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+
+      }}>
+        <small>Copyright ©{new Date().getFullYear()} Diamond Shop All rights reserved</small>
       </div>
     </footer>
   );
