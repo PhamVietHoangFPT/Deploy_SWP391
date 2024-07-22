@@ -3,11 +3,13 @@ import { createApi } from '../Auth/AuthFunction'
 import { BarChart } from '@mui/x-charts/BarChart'
 import { FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material'
 import { CircularProgress } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 export default function Dashboard() {
   const [dataDashboard, setDataDashboard] = useState([])
   const [year, setYear] = useState(new Date().getFullYear().toString())
   const [dataDashboardStats, setDataDashboardStats] = useState(null)
   const [triggerRead, setTriggerRead] = useState(false)
+  const navigate = useNavigate()
   const years = Array.from({ length: 2034 - 2024 + 1 }, (_, index) => 2024 + index);
   useEffect(() => {
     function getDataDashboard() {
@@ -78,14 +80,22 @@ export default function Dashboard() {
                   <Box sx={{
                     ...styleBox,
                     backgroundColor: 'lightgreen',
-                  }}>
+                    cursor: 'pointer',
+                    '&:hover': {
+                      boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
+                    }
+                  }} onClick={() => navigate('/admin/product?pageNumber=1&name=&OrderBy=false')}>
                     <h4>Product </h4>
                     <h4>{dataDashboardStats.numberOfProducts}</h4>
                   </Box>
                   <Box sx={{
                     ...styleBox,
                     backgroundColor: 'lightblue',
-                  }}>
+                    cursor: 'pointer',
+                    '&:hover': {
+                      boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
+                    }
+                  }} onClick={() => navigate('/admin/diamond?pageNumber=1&name=&OrderBy=false')}>
                     <h4>Diamond</h4>
                     <h4>{dataDashboardStats.numberOfDiamonds}</h4>
                   </Box>

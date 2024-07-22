@@ -73,6 +73,7 @@ export default function NavbarAdmin() {
 
 	const paddingStyle = {
 		padding: 0,
+		marginBottom: '15px',
 		backgroundColor: '#001529',
 		':hover': {
 			backgroundColor: '#004085', // Adjust the color as needed
@@ -86,7 +87,7 @@ export default function NavbarAdmin() {
 				width: '10%',
 			}}>
 				<Menu.Item style={paddingStyle} key="admin">
-					<Button onClick={goToAdmin} sx={buttonStyle}>Admin</Button>
+					<Button onClick={goToAdmin} sx={buttonStyle}>Dashboard</Button>
 				</Menu.Item >
 				{role === '1' || role === '2' ? (
 					<Menu.Item style={paddingStyle} key="Account">
@@ -129,7 +130,9 @@ export default function NavbarAdmin() {
 						<Button onClick={goToOrder} sx={buttonStyle}>Order</Button>
 					</Menu.Item>
 				) : null}
-				<Menu.Item style={paddingStyle} key="Logout">
+				<Menu.Item style={{
+					...paddingStyle,
+				}} key="Logout">
 					<Button onClick={Logout} sx={{
 						color: '#fff',
 						width: '-webkit-fill-available',
