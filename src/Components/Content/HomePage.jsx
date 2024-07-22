@@ -18,7 +18,7 @@ export default function HomePage() {
       {/* <Banner2></Banner2> */}
       <Collection></Collection>
       <News></News>
-      <AboutUs></AboutUs>
+      {/* <AboutUs></AboutUs> */}
     </div>
   );
 };
