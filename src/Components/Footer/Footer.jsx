@@ -13,7 +13,7 @@ export default function Footer() {
     <footer style={{
       backgroundColor: '#001529',
       color: '#fff',
-      padding: '30px 20px 0 20px',
+      padding: '30px 0 0 0',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
