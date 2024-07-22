@@ -37,8 +37,9 @@ export default function Footer() {
           }}>
             <div>
               <img src="https://cdn-icons-png.flaticon.com/512/14676/14676921.png" alt="" style={{
-                width: '100px',
+                width: '120px',
                 backgroundColor: '#fff',
+                borderRadius: '20px',
               }} /> <br />
             </div>
             <div>
@@ -90,7 +91,7 @@ export default function Footer() {
                         textDecoration: hovered === text.toLowerCase() ? 'underline' : 'none',
                         color: hovered === text.toLowerCase() ? '#c0954a' : '#fff',
                         marginBottom: '10px',
-                        fontSize: '1.2em',
+                        fontSize: '1.1em',
                         transition: 'color 0.3s',
                       }}
                     >
@@ -109,15 +110,15 @@ export default function Footer() {
             minWidth: '250px',
           }} className='col'>
             <h1 style={{ fontSize: '2em', color: '#c0954a', fontWeight: 'bold', marginBottom: '15px' }}>Contact Us</h1>
-            <div style={{ marginBottom: '10px', fontSize: '1.2em' }}>
+            <div style={{ marginBottom: '10px', fontSize: '1.1em' }}>
               <FaPhoneAlt style={{ marginRight: '10px' }} />
               <span>Phone: 012 3456789 - Fax: 012 3456789</span>
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '1.2em' }}>
+            <div style={{ marginBottom: '10px', fontSize: '1.1em' }}>
               <FaEnvelope style={{ marginRight: '10px' }} />
               <span>Email: support@example.com</span>
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '1.2em' }}>
+            <div style={{ marginBottom: '10px', fontSize: '1.1em' }}>
               <FaMapMarkerAlt style={{ marginRight: '10px' }} />
               <span>Address: Lot E2a-7, Road D1, Long Thanh My, Thu Duc City, Ho Chi Minh City</span>
             </div>
@@ -147,23 +148,23 @@ export default function Footer() {
             <div style={{ fontSize: '1.5em', color: '#c0954a', fontWeight: 'bold', marginBottom: '10px' }}>
               DIAMOND STORE
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '1.2em', color: '#fff' }}>
+            <div style={{ marginBottom: '10px', fontSize: '1.1em', color: '#fff' }}>
               Diamond & Jewelry
             </div>
-            <p style={{ marginBottom: '10px', lineHeight: '1.6', color: '#fff', fontSize: '1.2em' }}>
+            <p style={{ marginBottom: '10px', lineHeight: '1.6', color: '#fff', fontSize: '1.1em' }}>
               With their radiant beauty and unmatched elegance, diamonds and precious stones have always been the choice of the elite and the epitome of luxury.
             </p>
-            <p style={{ marginBottom: '10px', lineHeight: '1.6', color: '#fff', fontSize: '1.2em' }}>
+            <p style={{ marginBottom: '10px', lineHeight: '1.6', color: '#fff', fontSize: '1.1em' }}>
               Our customers can be completely assured of the quality, value, and price of each diamond when purchasing from Diamond Official Store. Integrity and responsibility in business are our foremost principles!
             </p>
-            <p style={{ color: '#fff', lineHeight: '1.6', fontSize: '1.2em' }}>
+            <p style={{ color: '#fff', lineHeight: '1.6', fontSize: '1.1em' }}>
               Let DIAMOND STORE elevate your life!
             </p>
           </div>
         </div>
       </div>
       <div style={{
-        fontSize: '1.2em',
+        fontSize: '1em',
         padding: '20px',
         borderTop: '2px solid #c0954a',
         width: '100%',
@@ -174,5 +175,5 @@ export default function Footer() {
         <small>Copyright ©{new Date().getFullYear()} Diamond Shop All rights reserved</small>
       </div>
     </footer>
-  );
+  )
 }
