@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReadAccount from './CRUDAccount'
+import CRUDAccount from './CRUDAccount'
 import { useNavigate } from 'react-router-dom'
 
 export default function Account() {
@@ -18,7 +18,7 @@ export default function Account() {
 					<h2>Account</h2>
 				</div>
 				<div className='buttonContainer'>
-					<ReadAccount></ReadAccount>
+					<CRUDAccount></CRUDAccount>
 				</div>
 			</div>
 		</div>

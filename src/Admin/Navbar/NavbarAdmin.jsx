@@ -14,7 +14,7 @@ export default function NavbarAdmin() {
 	}
 
 	function goToAccount() {
-		navigate('/admin/account?pageNumber=1')
+		navigate('/admin/account?pageNumber=1&OrderBy=&SortBy=&RoleId=&Name=&Email=&')
 	}
 
 	function goToAdmin() {

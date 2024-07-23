@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, Box, TextField, Select, InputLabel, MenuItem,  FormControl } from '@mui/material'
+import { Button, Modal, Box, TextField, Select, InputLabel, MenuItem, FormControl } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend'
 import { checkApiStatus, createApi } from '../../../Auth/AuthFunction'
 import EditIcon from '@mui/icons-material/Edit'
-export default function UpdateAccount({ onClick, ...props }) {
+export default function UpdateAccount(props) {
 	const [idAccount, setIdAccount] = useState('')
 	const [nameAccount, setnameAccount] = useState('')
 	const [emailAccount, setEmailAccount] = useState('')
@@ -54,10 +54,11 @@ export default function UpdateAccount({ onClick, ...props }) {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify(data)
-		}).then(response => checkApiStatus(response))
-			.then(() => {
-				props.onAccountUpdated()
-			})
+		}).then(response => {
+			checkApiStatus(response)
+			props.onAccountUpdated()
+			handleClose()
+		})
 
 	}
 
@@ -107,7 +108,7 @@ export default function UpdateAccount({ onClick, ...props }) {
 	return (
 		<div>
 			<Button type="button" size="large"
-				onClick={() => { handleOpen(); onClick() }}
+				onClick={handleOpen}
 			>
 				<EditIcon></EditIcon>
 			</Button>
