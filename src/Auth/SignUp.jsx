@@ -100,7 +100,7 @@ export default function SignUp() {
     name: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email format').required('Required'),
     gender: Yup.boolean().required('Required'),
-    password: Yup.string().required('Required'),
+    password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters'),
     confirmPassword: Yup.string().required('Required').oneOf([Yup.ref('password'), null], 'Passwords must match'),
     address: Yup.string().required('Required'),
     phoneNumber: Yup
