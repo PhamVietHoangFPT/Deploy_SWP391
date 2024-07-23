@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
-import { createApi } from '../Auth/AuthFunction'
+import { createApi, checkApiStatus } from '../Auth/AuthFunction'
 import { Button, TextField, FormControl, InputLabel, MenuItem } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { Container, Grid, Alert, Select } from '@mui/material'
@@ -106,11 +106,9 @@ export default function Profile() {
       },
       body: JSON.stringify(data)
     }).then(response => {
-      return response.json()
-    }
-    ).then(responseData => {
-      console.log(responseData)
+      checkApiStatus(response)
       setTrigger(prev => !prev)
+      setUserAddressEdit(false)
     })
   }
 
@@ -148,7 +146,10 @@ export default function Profile() {
   }
 
   const validationSchemaUpdatePassword = Yup.object({
-    newPassword: Yup.string().required('Required').min(6, 'Password must be at least 6 characters'),
+    newPassword: Yup.string().required('Required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(/(?=.*[A-Z])/, 'Password must include at least one uppercase and one special character')
+      .matches(/(?=.*[!@#$%^&*])/, 'Password must include at least one uppercase and one special character'),
     retypePassword: Yup.string().required('Required').oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
   })
 
