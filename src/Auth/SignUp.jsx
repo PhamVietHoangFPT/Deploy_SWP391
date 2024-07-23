@@ -35,11 +35,6 @@ export default function SignUp() {
       })
       .then(data => {
         setErrorAlert(data.ErrorMessage)
-        console.log('Success:', data)
-
-      })
-      .catch((error) => {
-        console.error('Error:', error)
       })
   }
 
