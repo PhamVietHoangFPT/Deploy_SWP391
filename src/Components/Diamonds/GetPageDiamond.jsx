@@ -492,59 +492,6 @@ export default function GetPageDiamond() {
                         </p>
                       </CardContent>
                     </Link>
-                    {token ? (
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        width: '100%',
-                        height: '15%',
-                      }}>
-                        <Button fullWidth onClick={() => addToCart(item)} sx={{
-                          color: 'black',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          height: '50px',
-                          backgroundColor: '#ad2a36',
-                          '&:hover': {
-                            backgroundColor: '#ad2a36',
-                          }
-                        }} size='large'
-                          variant='contained'
-                        >
-                          <ShoppingCartIcon fontSize='large' sx={{
-                            height: '50px',
-                            color: '#fff',
-                            fontSize: '70px',
-                          }}></ShoppingCartIcon>
-                        </Button>
-                      </div>
-                    ) : (
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        width: '100%',
-                        height: '15%',
-                      }}>
-                        <Button fullWidth onClick={() => navigate('/login')} sx={{
-                          color: 'black',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          height: '50px',
-                          backgroundColor: '#ad2a36',
-                          '&:hover': {
-                            backgroundColor: '#ad2a36',
-                          }
-                        }} size='large'
-                          variant='contained'
-                        >
-                          <ShoppingCartIcon fontSize='large' sx={{
-                            height: '50px',
-                            color: '#fff',
-                            fontSize: '70px',
-                          }}></ShoppingCartIcon>
-                        </Button>
-                      </div>
-                    )}
                   </Card>
                 </Grid>
               )
