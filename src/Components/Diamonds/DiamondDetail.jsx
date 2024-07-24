@@ -280,14 +280,25 @@ export default function DiamondDetail() {
                 }}>
                   <h3 style={{ color: '#183471' }}>{price.toLocaleString()} $</h3>
                   {token ? (
-                    <AddToCartButton
-                      type='submit'
-                      variant='contained'
-                      size='large'
-                      onClick={() => submitForm(data)}
-                    >
-                      Add to cart
-                    </AddToCartButton>
+                    DiamondDetail.quantity > 0 ? (
+                      <AddToCartButton
+                        type='submit'
+                        variant='contained'
+                        size='large'
+                        onClick={() => submitForm(data)}
+                      >
+                        Add to cart
+                      </AddToCartButton>
+                    ) : (
+                      <AddToCartButton
+                        type='submit'
+                        variant='contained'
+                        size='large'
+                        onClick={() => alert('Out of stock')}
+                      >
+                        Out of stock
+                      </AddToCartButton>
+                    )
                   ) : (
                     <AddToCartButton
                       type='submit'

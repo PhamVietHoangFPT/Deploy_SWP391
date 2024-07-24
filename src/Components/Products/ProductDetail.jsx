@@ -22,7 +22,8 @@ export default function ProductDetail() {
   const [openSize, setOpenSize] = useState(false)
   const [productDetail, setProductDetail] = useState(null)
   const [currentTopImageIndex, setCurrentTopImageIndex] = useState(0)
-  const [selectedSize, setSelectedSize] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(1)
+  const [selectedSizeQuantity, setSelectedSizeQuantity] = useState(null)
   const [selectedQuantity, setSelectedQuantity] = useState(1)
   const [responseStatus, setResponseStatus] = useState('')
   const [voucherData, setVoucherData] = useState([])
@@ -45,6 +46,7 @@ export default function ProductDetail() {
         setProductDetail(data)
         setSelectedSize(data?.productSizes?.[0]?.size)
         setTotalPrice(data?.productSizes?.[0]?.price * selectedQuantity)
+        setSelectedSizeQuantity(data?.productSizes?.[0]?.quantity)
       } catch (error) {
         console.error(error)
       }
@@ -352,6 +354,7 @@ export default function ProductDetail() {
                             variant="outlined"
                             onClick={() => {
                               handleSelectSize(size.size);
+                              setSelectedSizeQuantity(size.quantity)
                               const newPrice = size.price * selectedQuantity;
                               setTotalPrice(newPrice);
                             }}
@@ -441,14 +444,25 @@ export default function ProductDetail() {
                     <h3 style={{ color: '#183471' }}>{totalPrice.toLocaleString()} $</h3>
                   </div>
                   {token ? (
-                    <AddToCartButton
-                      type='submit'
-                      variant='contained'
-                      size='large'
-                      onClick={() => submitForm(data)}
-                    >
-                      Add to cart
-                    </AddToCartButton>
+                    selectedSizeQuantity && selectedSizeQuantity > 0 ? (
+                      <AddToCartButton
+                        type='submit'
+                        variant='contained'
+                        size='large'
+                        onClick={() => submitForm(data)}
+                      >
+                        Add to cart
+                      </AddToCartButton>
+                    ) : (
+                      <AddToCartButton
+                        type='submit'
+                        variant='contained'
+                        size='large'
+                        onClick={() => alert('Out of stock')}
+                      >
+                        Out of stock
+                      </AddToCartButton>
+                    )
                   ) : (
                     <AddToCartButton
                       type='submit'
