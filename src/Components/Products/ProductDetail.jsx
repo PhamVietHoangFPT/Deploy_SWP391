@@ -12,6 +12,10 @@ import { FormControl } from '@mui/material'
 import { createApi } from '../../Auth/AuthFunction'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useNavigate } from 'react-router-dom'
+import './GetPageProduct.css'
+import GppGoodIcon from '@mui/icons-material/GppGood';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 export default function ProductDetail() {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -155,7 +159,8 @@ export default function ProductDetail() {
     <div style={{
       background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
       backgroundSize: 'cover',
-      minHeight: '100vh',
+      minHeight: '70vh',
+      paddingBottom: '50px',
     }}>
       {productDetail ? (
         <Container>
@@ -175,6 +180,34 @@ export default function ProductDetail() {
                   <div className='col' style={{
                     paddingTop: '5vh',
                   }}>
+                    {
+                      saleAllProduct ? (() => {
+                        const itemSale = salePriceProduct.find(is => is.productId === productDetail.id)
+                        return (
+                          <div className='box' style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}>
+                            <div className='ribbon-2'>
+                              {(itemSale?.discountPercentage || 0) + saleAllProductPercentage}% off
+                            </div>
+                          </div>
+                        )
+                      })() : (() => {
+                        const itemSale = salePriceProduct.find(is => is.productId === productDetail.id)
+                        if (!itemSale) return null
+                        return (
+                          <div className='box' style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}>
+                            <div className='ribbon-2'>
+                              {(itemSale?.discountPercentage || 0) + saleAllProductPercentage}% off
+                            </div>
+                          </div>
+                        )
+                      })()
+                    }
                     <img src={imageMain} style={{
                       width: '100%', // Suitable for mobile
                       maxWidth: '450px',
@@ -372,47 +405,34 @@ export default function ProductDetail() {
                   </div>
                   {
                     saleAllProduct ? (() => {
-                      const itemSale = salePriceProduct.find(is => is.productId === id)
+                      const itemSale = salePriceProduct.find(is => is.productId === productDetail.id)
                       return (
-                        <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                        }}>
+                        <div>
                           <div>
                             <h3 style={{
                               textDecoration: 'line-through',
                             }}>
-                              Price: {(
+                              {(
                                 totalPrice / (1 - ((itemSale?.discountPercentage || 0) + saleAllProductPercentage) / 100)
                               ).toLocaleString()}$
                             </h3>
-                          </div>
-                          <div>
-                            {(itemSale?.discountPercentage || 0) + saleAllProductPercentage}% off
                           </div>
                         </div>
                       )
                     })() : (() => {
-                      const itemSale = salePriceProduct.find(is => is.productId === id)
+                      const itemSale = salePriceProduct.find(is => is.productId === productDetail.id)
                       if (!itemSale) return null
                       return (
-                        <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                        }}>
+                        <div>
                           <div>
                             <h3 style={{
                               textDecoration: 'line-through',
                             }}>
-                              Price: {(
+                              {(
                                 totalPrice / (1 - ((itemSale?.discountPercentage || 0) + saleAllProductPercentage) / 100)
                               ).toLocaleString()}$
                             </h3>
                           </div>
-                          <div>
-                            {(itemSale?.discountPercentage || 0) + saleAllProductPercentage}% off
-                          </div>
-
                         </div>
                       )
                     })()
@@ -452,7 +472,43 @@ export default function ProductDetail() {
               </div>
               <br />
             </div>
-          </div >
+          </div><br />
+          <div className='row' style={{
+            marginTop: '150px',
+            borderTop: '1px solid black',
+          }}>
+            <div className='col'>
+              <h2>
+                <WorkspacePremiumIcon sx={{ fontSize: '2em' }}></WorkspacePremiumIcon>QUALITY COMMITMENT
+              </h2>
+              <p>
+                <GppGoodIcon></GppGoodIcon>Jewelry/Jewelry Sets are 100% accurate in gold content and weight.
+              </p>
+              <p>
+                <GppGoodIcon></GppGoodIcon>Natural diamonds are 100% imported with official certification and have world-class reputation and global value. Fully equipped with modern machinery and equipment to check quality and check diamond edge codes.
+              </p>
+            </div>
+            <div className='col'>
+              <h2>
+                <LocalShippingIcon sx={{ fontSize: '2em' }}></LocalShippingIcon>ONLINE SHOPPING GUIDE
+              </h2>
+              <p>
+                <GppGoodIcon></GppGoodIcon>You go to the product page to view the products posted on the Website
+              </p>
+              <p>
+                <GppGoodIcon></GppGoodIcon> Add to cart.
+              </p>
+              <p>
+                <GppGoodIcon></GppGoodIcon> Check order information and place an order
+              </p>
+              <p>
+                <GppGoodIcon></GppGoodIcon>Check and confirm the order
+              </p>
+              <p>
+                <GppGoodIcon></GppGoodIcon> The order will be pending approval by the system and after approval, you can pay by PayOS or VNPay. After that, your order will be handed over to the carrier.
+              </p>
+            </div>
+          </div>
         </Container>
       ) : (
         <div style={{

@@ -375,25 +375,41 @@ export default function Order() {
           </div>
           <div style={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%'
           }}>
-            <div>
-              <Button onClick={() => handlePaymentPayOs(userId, 1, orderDetailId)}>
-                <img src="https://payos.vn/docs/img/logo.svg" alt="" style={{
-                  height: '100px',
-                }} />
-              </Button>
+            <h3>
+              Payment Method
+            </h3>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%'
+            }}>
+              <div>
+                <Button onClick={() => handlePaymentPayOs(userId, 1, orderDetailId)}>
+                  <img src="https://payos.vn/docs/img/logo.svg" alt="" style={{
+                    height: '100px',
+                    padding: '10px',
+                    border: '1px solid #000',
+                  }} />
+                </Button>
+              </div>
+              <div>
+                <Button onClick={() => handlePaymentVNPay(userId, 12, orderDetailId)}>
+                  <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" alt="" style={{
+                    height: '100px',
+                    padding: '10px',
+                    border: '1px solid #000',
+                  }} />
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button onClick={() => handlePaymentVNPay(userId, 12, orderDetailId)}>
-                <img src="https://downloadlogomienphi.com/sites/default/files/logos/download-logo-vector-vnpayqr-noqr-mien-phi.jpg" alt="" style={{
-                  height: '100px',
-                }} />
-              </Button>
-            </div>
+
           </div>
         </Box>
       </Modal>
