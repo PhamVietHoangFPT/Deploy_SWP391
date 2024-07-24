@@ -86,9 +86,11 @@ export default function NavbarAdmin() {
 				Height: '-webkit-fill-available',
 				width: '10%',
 			}}>
-				<Menu.Item style={paddingStyle} key="admin">
-					<Button onClick={goToAdmin} sx={buttonStyle}>Dashboard</Button>
-				</Menu.Item >
+				{role === '1' && (
+					<Menu.Item style={paddingStyle} key="admin">
+						<Button onClick={goToAdmin} sx={buttonStyle}>Dashboard</Button>
+					</Menu.Item >
+				)}
 				{role === '1' || role === '2' ? (
 					<Menu.Item style={paddingStyle} key="Account">
 						<Button onClick={goToAccount} sx={buttonStyle}>Account</Button>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Alert } from '@mui/material'
+import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Alert, TextField } from '@mui/material'
 import { Box, Modal, } from '@mui/material'
 import { styled, } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -243,28 +243,65 @@ export default function ProductDetail() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 textAlign: 'center',
+                width: '100%',
               }}>
                 <h1>{productDetail?.name}</h1>
                 <TableContainer sx={{
                   borderTop: '1px dashed black',
                   borderBottom: '1px dashed black',
-                  width: 'auto',
+                  width: '100%',
                 }}>
                   <Table>
                     <TableBody>
+                      <TableRow>
+                        <TableCell sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}>
+                          <h4 style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}>Material </h4>
+                          <TextField value={productDetail?.diamondCase.name} />
+                        </TableCell>
+                      </TableRow>
                       {productDetail?.productParts.map((diamond, index) => (
-                        <TableRow key={index} >
-                          {diamond.isMain ? (
-                            <TableCell>
-                              <h4>Main Diamond: {diamond.diamond.name}</h4>
-                            </TableCell>
-                          ) : (
-                            <TableCell>
-                              <h4>Extra Diamond {diamond.diamond.name}</h4>
-                            </TableCell>
-                          )}
-                        </TableRow>
+                        <Fragment key={index}>
+                          {
+                            diamond.isMain ? (
+                              <TableRow>
+                                <TableCell sx={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                }}>
+                                  <h4 style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}>Main Diamond</h4>
+                                  <TextField value={diamond.diamond.name}></TextField>
+                                </TableCell>
+                              </TableRow>
+                            ) : (
+                              <TableRow>
+                                <TableCell sx={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                }}>
+                                  <h4 style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}>Extra Diamond</h4>
+                                  <TextField value={diamond.diamond.name} />
+                                </TableCell>
+                              </TableRow>
+                            )
+                          }
+                        </Fragment>
                       ))}
+
                     </TableBody>
                   </Table>
                 </TableContainer><br />
@@ -311,7 +348,7 @@ export default function ProductDetail() {
                         cursor: 'pointer',
                         textDecoration: 'underline',
                         fontSize: '20px',
-                      }}>How to Measure Ring Size</a>
+                      }}>How to Measure {productDetail?.category.name} Size</a>
                     </div>
                     <Modal
                       open={openSize}
@@ -328,7 +365,8 @@ export default function ProductDetail() {
                         p: 4,
                         overflow: 'auto',
                       }}>
-                        <img src="https://www.alexmakina.com/Data/EditorFiles/alex/Blog%20G%C3%B6rsel/Ring%20Size%20Measurement%20Using%20Thread%20or%20Floss.jpg" alt="" />
+                        {productDetail?.category.name === 'Ring' && (<img src="https://www.alexmakina.com/Data/EditorFiles/alex/Blog%20G%C3%B6rsel/Ring%20Size%20Measurement%20Using%20Thread%20or%20Floss.jpg" alt="" />)}
+                        {productDetail?.category.name === 'Eardrop' && (<img src="https://i.pinimg.com/736x/7e/41/54/7e41543e3c3ff99eecf88e825656b4a2.jpg" alt="" />)}
                       </Box>
                     </Modal>
                   </div>

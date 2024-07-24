@@ -10,7 +10,11 @@ export default function Dashboard() {
   const [dataDashboardStats, setDataDashboardStats] = useState(null)
   const [triggerRead, setTriggerRead] = useState(false)
   const navigate = useNavigate()
-  const years = Array.from({ length: 2034 - 2024 + 1 }, (_, index) => 2024 + index);
+  const years = Array.from({ length: 2034 - 2024 + 1 }, (_, index) => 2024 + index)
+  const role = localStorage.getItem('role')
+  if (role === '3' || role === '4') {
+    navigate('/admin/order')
+  }
   useEffect(() => {
     function getDataDashboard() {
       for (let month = 1; month <= 12; month++) {

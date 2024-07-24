@@ -14,8 +14,10 @@ export default function Profile() {
   const [userPasswordPage, setUserPasswordPage] = useState(false)
   const [userAddressEdit, setUserAddressEdit] = useState(false)
   const [trigger, setTrigger] = useState(false)
-  const [statusPassword, setStatusPassword] = useState()
+  const [statusPassword, setStatusPassword] = useState(null)
+  const [showStatusPassword, setShowStatusPassword] = useState(false)
   const [statusUpdatePassword, setStatusUpdatePassword] = useState()
+  const [showStatusUpdatePassword, setShowStatusUpdatePassword] = useState(false)
   const navigate = useNavigate()
   const validationSchema = Yup.object({
     name: Yup.string().required('Required'),
@@ -48,6 +50,8 @@ export default function Profile() {
 
   const handleCloseUserPage = () => {
     setUserDetailPage(false)
+    setShowStatusPassword(false)
+    setShowStatusUpdatePassword(false)
   }
 
   const handleOpenPasswordPage = () => {
@@ -109,6 +113,7 @@ export default function Profile() {
       checkApiStatus(response)
       setTrigger(prev => !prev)
       setUserAddressEdit(false)
+      setShowStatusPassword(false)
     })
   }
 
@@ -122,6 +127,7 @@ export default function Profile() {
 
   const onSubmitPassword = (values) => {
     checkUpdatePassword(values)
+    setShowStatusPassword(true)
   }
 
   const checkUpdatePassword = (values) => {
@@ -155,6 +161,7 @@ export default function Profile() {
 
   const onSubmitUpdatePassword = (values) => {
     updatePassword(values)
+
   }
 
   const updatePassword = (values) => {
@@ -173,10 +180,15 @@ export default function Profile() {
       body: JSON.stringify(data)
     }).then(response => {
       setStatusUpdatePassword(response.status)
+      setShowStatusUpdatePassword(true)
     })
   }
   return (
-    <div>
+    <div style={{
+      background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
+      backgroundSize: 'cover',
+      minHeight: '60vh',
+    }}>
       <Container>
         <div style={{
           display: 'flex',
@@ -213,7 +225,7 @@ export default function Profile() {
                       <h3 style={{
                         textDecoration: !userDetailPage ? 'underline' : 'none',
                       }}>
-                        Password
+                        Change password
                       </h3>
                     </div>
                   </div>
@@ -380,7 +392,7 @@ export default function Profile() {
                   alignItems: 'center',
                   borderBottom: '1px solid #04376a',
                 }}>
-                  <h2>User Password</h2>
+                  <h2>Change Password</h2>
                 </div>
                 <div>
                   {dataUser.password ? (
@@ -432,10 +444,14 @@ export default function Profile() {
                           </Form>
                         </Formik>
                       </div>
-                      {statusPassword ? (
-                        <Alert severity="success">Password: Correct</Alert>
-                      ) : (
-                        <Alert severity="error">Password: Incorrect</Alert>
+                      {showStatusPassword && (
+                        <>
+                          {statusPassword ? (
+                            <Alert severity="success">Password: Correct</Alert>
+                          ) : (
+                            <Alert severity="error">Password: Incorrect</Alert>
+                          )}
+                        </>
                       )}
                       {statusPassword ? (
                         <div style={{
@@ -479,6 +495,7 @@ export default function Profile() {
                                 display: 'flex',
                                 justifyContent: 'flex-end',
                                 alignItems: 'center',
+                                gap: '10px',
                               }}>
                                 <Button
                                   size='large'
@@ -504,11 +521,16 @@ export default function Profile() {
                                   Cancel
                                 </Button>
                               </div>
-                              {statusUpdatePassword === 204 ? (
-                                <Alert severity="success">Password: Updated</Alert>
-                              ) : (
-                                <Alert severity="error">Password: Not updated</Alert>
-                              )}
+                              {
+                                showStatusUpdatePassword &&
+                                <>
+                                  {statusUpdatePassword === 204 ? (
+                                    <Alert severity="success">Password: Updated</Alert>
+                                  ) : (
+                                    <Alert severity="error">Password: Not updated</Alert>
+                                  )}
+                                </>
+                              }
                             </Form>
                           </Formik>
                         </div>
