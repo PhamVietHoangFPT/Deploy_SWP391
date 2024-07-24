@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Container, TableCell, Alert } from '@mui/material'
+import { Container, TableCell, Alert, TextField } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check';
 import { styled, } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -112,7 +112,7 @@ export default function DiamondDetail() {
     <div style={{
       background: 'url(https://img.freepik.com/free-vector/blue-white-crystal-textured-background_53876-85226.jpg?w=1380&t=st=1719599020~exp=1719599620~hmac=e182c45295cca98949de853e8f72341b687ed809b89663e38e1d78cbaec7314c)',
       backgroundSize: 'cover',
-      minHeight: '100vh',
+      minHeight: '60vh',
     }}>
       {DiamondDetail ? (
         <Container>
@@ -202,25 +202,77 @@ export default function DiamondDetail() {
                 textAlign: 'center',
               }}>
                 <h1>{DiamondDetail?.name}</h1>
-                <TableCell>
-                  <h5>Origin: {DiamondDetail?.origin}</h5>
-                </TableCell>
-                <TableCell>
-                  <h5>Carat weight: {DiamondDetail?.caratWeight}</h5>
-                </TableCell>
-                <TableCell>
-                  <h5>Clarity: {DiamondDetail?.clarity}</h5>
-                </TableCell>
-                <TableCell>
-                  <h5>Color: {DiamondDetail?.color}</h5>
-                </TableCell>
-                <TableCell>
-                  <h5>Cut: {DiamondDetail?.cut}</h5>
-                </TableCell>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}>
+                  <TableCell sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '25px',
+                  }}>
+                    <h5 style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>Origin </h5>
+                    <TextField value={DiamondDetail?.origin}></TextField>
+                  </TableCell>
+                  <TableCell sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '25px',
+                  }}>
+                    <h5 style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>Carat weight</h5>
+                    <TextField value={DiamondDetail?.caratWeight}></TextField>
+                  </TableCell>
+                  <TableCell sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '25px',
+                  }}>
+                    <h5 style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>Clarity</h5>
+                    <TextField value={DiamondDetail?.clarity}></TextField>
+                  </TableCell>
+                  <TableCell sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '25px',
+                  }}>
+                    <h5 style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>Color</h5>
+                    <TextField value={DiamondDetail?.color}></TextField>
+                  </TableCell>
+                  <TableCell sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '25px',
+                  }}>
+                    <h5 style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>Cut</h5>
+                    <TextField value={DiamondDetail?.cut}></TextField>
+                  </TableCell>
+                </div>
                 <br />
 
                 <FormControl sx={{
                   width: '300px',
+                  marginBottom: '20px',
                 }}>
                   <h3 style={{ color: '#183471' }}>{price.toLocaleString()} $</h3>
                   {token ? (

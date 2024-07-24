@@ -44,7 +44,7 @@ export default function Certificate() {
       .catch((error) => console.error('Error:', error))
   }, [triggerRead])
 
-  const rowHeader = ['ID', 'reportNumber', 'origin', 'Date Of Issue (mm/dd/yyyy)', 'Action']
+  const rowHeader = ['ID', 'Report Number', 'Origin', 'Date Of Issue (mm/dd/yyyy)', 'Action']
   return (
     <div className='contentAdminContainer'>
       <div className='CRUDContainer '>

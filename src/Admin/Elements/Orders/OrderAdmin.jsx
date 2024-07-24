@@ -148,7 +148,7 @@ export default function OrderAdmin() {
     setTriggerRead(prev => !prev)
   }
 
-  const headerTable = ['Order ID', 'Order Date', 'Customer Name', 'Order Status', 'Order Total', 'Phone', 'Address', 'Payment method', 'Detail', '']
+  const headerTable = ['Order Date', 'Customer Name', 'Order Status', 'Order Total', 'Phone', 'Address', 'Payment method', 'Detail', '']
   const headerTableDetail = ['Image', 'Product Name', 'Quantity', 'Price']
 
   return (
@@ -204,7 +204,6 @@ export default function OrderAdmin() {
                   <TableBody>
                     {dataOrder.items?.map((order) => (
                       <TableRow key={order.id}>
-                        <TableCell>{order.id}</TableCell>
                         <TableCell>{order.createdDate}</TableCell>
                         <TableCell>{order.accountName}</TableCell>
                         <TableCell>

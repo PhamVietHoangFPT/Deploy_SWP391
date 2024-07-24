@@ -126,14 +126,8 @@ export default function UpdateAccount(props) {
 					boxShadow: 24,
 					p: 4,
 				}}>
-					<h3 className='titleOfForm'>UPDATE Account</h3>
+					<h3 className='titleOfForm'>UPDATE ACCOUNT</h3>
 					<form onSubmit={handleSubmit}>
-						<div className='row'>
-							<div className='col-12'>
-								<TextField disabled type="text" value={props.id}
-									id="outlined-basic" label="Id" variant="outlined" className='form-control' />
-							</div>
-						</div> <br />
 						<div className='row'>
 							<div className='col-6'>
 								<TextField type="text" defaultValue={props.email} onChange={handleEmailChange}
@@ -174,21 +168,21 @@ export default function UpdateAccount(props) {
 								type="submit"
 								className='submitButton'
 								value="Submit" variant="contained"
-								size="large" endIcon={<SendIcon />}
+								size="large"
 								sx={{
 									margin: '5px',
 								}}>
-								Send
+								Save
 							</Button>
 							<Button type="button"
-								value="Clear" onClick={handleClear}
+								value="Clear"
 								className='submitButton'
 								variant="contained" size="large" color="error"
-								endIcon={<CancelScheduleSendIcon />}
+								onClick={handleClose}
 								sx={{
 									margin: '5px',
 								}}>
-								Clear
+								Cancel
 							</Button>
 						</div>
 					</form>

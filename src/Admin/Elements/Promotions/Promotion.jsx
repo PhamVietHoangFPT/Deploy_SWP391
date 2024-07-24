@@ -66,7 +66,7 @@ export default function ShowAllPromotion() {
                       <TableRow key={data.id}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{data.point}</TableCell>
-                        <TableCell>{data.discountPercentage}</TableCell>
+                        <TableCell>{data.discountPercentage}%</TableCell>
                         <TableCell><DeletePromotion id={data.id} onPromotionDeleted={() => setTriggerRead(prev => !prev)}></DeletePromotion></TableCell>
                       </TableRow>
                     ))

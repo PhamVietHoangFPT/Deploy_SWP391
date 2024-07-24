@@ -99,7 +99,7 @@ export default function CreateAccount(props) {
 						width: '50%	',
 						overflow: 'auto'
 					}}>
-						<h3 className='titleOfForm'>CREATE Account</h3>
+						<h3 className='titleOfForm'>CREATE ACCOUNT</h3>
 						<div>
 							<form onSubmit={handleSubmit}>
 								<div className='row'>
