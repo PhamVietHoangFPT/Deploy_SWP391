@@ -19,6 +19,9 @@ export default function Dashboard() {
   if (role === '3' || role === '4') {
     navigate('/admin/order')
   }
+  if (role === '2') {
+    navigate('/admin/product')
+  }
   useEffect(() => {
     function getDataDashboard() {
       for (let month = 1; month <= 12; month++) {
