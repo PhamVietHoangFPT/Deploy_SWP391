@@ -133,7 +133,6 @@ export default function GetPageProduct() {
             >
               <MenuItem value={false}>Ascending</MenuItem>
               <MenuItem value={true}>Descending</MenuItem>
-              <MenuItem value={null}>Default</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -150,9 +149,9 @@ export default function GetPageProduct() {
               onChange={(e) => handleSelectPrice(e.target.value)}
             >
               {
-                Array.from({ length: (100000 - 1000) / 15000 }, (_, index) => {
-                  const start = 1000 + (15000 * index);
-                  const end = start + 15000;
+                Array.from({ length: (7000 - 1000) / 500 }, (_, index) => {
+                  const start = 1000 + (500 * index);
+                  const end = start + 500;
                   return (
                     <MenuItem key={index} value={`${start}-${end}`}>
                       ${start.toLocaleString()} - ${end.toLocaleString()}
