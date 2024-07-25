@@ -115,6 +115,9 @@ export default function NavbarAdmin() {
 				) : null}
 				{role === '1' && (
 					<>
+						<Menu.Item key="Account" style={paddingStyle}>
+							<Button onClick={goToAccount} sx={buttonStyle}>Account</Button>
+						</Menu.Item>
 						<Menu.Item key="Category" style={paddingStyle}>
 							<Button onClick={goToCategory} sx={buttonStyle}>Category</Button>
 						</Menu.Item>
