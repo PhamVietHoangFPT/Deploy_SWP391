@@ -402,7 +402,10 @@ export default function ProductDetail() {
                         overflow: 'auto',
                       }}>
                         {productDetail?.category.name === 'Ring' && (<img src="https://www.alexmakina.com/Data/EditorFiles/alex/Blog%20G%C3%B6rsel/Ring%20Size%20Measurement%20Using%20Thread%20or%20Floss.jpg" alt="" />)}
-                        {productDetail?.category.name === 'Eardrop' && (<img src="https://i.pinimg.com/736x/7e/41/54/7e41543e3c3ff99eecf88e825656b4a2.jpg" alt="" />)}
+                        {productDetail?.category.name === 'EarDrop' && (<img src="https://i.pinimg.com/736x/7e/41/54/7e41543e3c3ff99eecf88e825656b4a2.jpg" alt="" />)}
+                        {productDetail?.category.name === 'Pendant' && (<img src="https://media.tiffany.com/is/image/tiffanydm/SizeGuide-Necklacea?$tile$&wid=700&hei=700" alt="" />)}
+                        {productDetail?.category.name === 'Bracelet' && (<img src="https://cdn.shopify.com/s/files/1/0272/2070/5377/files/GaussTherapy_bracelet-sizechart.jpg" alt="" />)}
+                        {productDetail?.category.name === 'Bangles' && (<img src="https://www.blog1.trymintly.com/wp-content/uploads/2023/11/Bangles-Size-chart-1-2000x1020-1.jpg" alt="" />)}
                       </Box>
                     </Modal>
                   </div>
