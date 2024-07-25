@@ -188,7 +188,7 @@ export default function Dashboard() {
                     }}>
                       <BarChart
                         yAxis={[{
-                          label: 'Total Orders',
+                          label: 'Total Orders Finished',
                           valueFormatter: (value) => `${value}`,
                         }]}
                         xAxis={[{ label: 'Month', scaleType: 'band', data: dataDashboard.map(item => item.month) }]}
@@ -196,7 +196,7 @@ export default function Dashboard() {
                         width={500}
                         height={300}
                       />
-                      <h4>Total Orders</h4>
+                      <h4>Total Orders Finished</h4>
                     </div>
                     <div style={{
                       display: 'flex',

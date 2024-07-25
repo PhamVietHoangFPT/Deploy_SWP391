@@ -91,7 +91,7 @@ export default function NavbarAdmin() {
 						<Button onClick={goToAdmin} sx={buttonStyle}>Dashboard</Button>
 					</Menu.Item >
 				)}
-				{role === '1' || role === '2' ? (
+				{role === '2' ? (
 					<>
 						<Menu.Item key="Category" style={paddingStyle}>
 							<Button onClick={goToCategory} sx={buttonStyle}>Category</Button>

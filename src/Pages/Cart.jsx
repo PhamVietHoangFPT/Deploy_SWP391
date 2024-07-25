@@ -208,7 +208,6 @@ export default function Cart() {
         if (!response.ok) {
           return response.json()
         } else { navigate('/order') }
-
       })
         .then(data => alert(data.ErrorMessage))
 
