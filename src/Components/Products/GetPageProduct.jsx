@@ -26,7 +26,7 @@ export default function GetPageProduct() {
   const [dataCollection, setDataCollection] = useState(null)
   const [DiamondIds, setDiamondId] = useState([])
   const [dataDiamond, setDataDiamond] = useState(null)
-  const [nameProduct, setNameProduct] = useState(searchParams.get('name'))
+  const [nameProduct, setNameProduct] = useState(searchParams.get('name') || null)
   const [voucherData, setVoucherData] = useState([])
   const [triggerVoucher, setTriggerVoucher] = useState(false)
   const [saleAllProduct, setSaleAllProduct] = useState(false)
