@@ -44,7 +44,7 @@ export default function CRUDCategory() {
 		Read()
 	}, [triggerRead])
 
-	const tableHead = ['#', 'Name', 'Status', 'Action']
+	const tableHead = ['Name', 'Status', 'Action']
 	return (
 		<>
 			{data ? (
@@ -70,7 +70,6 @@ export default function CRUDCategory() {
 										.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 										.map((data, index) => (
 											<TableRow key={data.id}>
-												<TableCell>{index + 1 + page * rowsPerPage}</TableCell>
 												<TableCell style={{
 													maxWidth: '11vw',
 													minWidth: '11vw'

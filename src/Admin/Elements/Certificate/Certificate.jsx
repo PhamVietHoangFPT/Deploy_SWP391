@@ -44,7 +44,7 @@ export default function Certificate() {
       .catch((error) => console.error('Error:', error))
   }, [triggerRead])
 
-  const rowHeader = ['ID', 'Report Number', 'Origin', 'Date Of Issue (mm/dd/yyyy)', 'Action']
+  const rowHeader = ['Report Number', 'Origin', 'Date Of Issue (mm/dd/yyyy)', 'Action']
   return (
     <div className='contentAdminContainer'>
       <div className='CRUDContainer '>
@@ -80,7 +80,6 @@ export default function Certificate() {
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((item, index) => (
                             <TableRow key={index}>
-                              <TableCell>{item.id}</TableCell>
                               <TableCell>{item.reportNumber}</TableCell>
                               <TableCell>{item.origin}</TableCell>
                               <TableCell>{new Date(item.dateOfIssue).toLocaleDateString()}</TableCell>

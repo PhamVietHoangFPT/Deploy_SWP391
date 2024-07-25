@@ -30,7 +30,6 @@ export default function CRUDAccount() {
 	const [userId, setUserId] = useState(Number(jwtDecode(localStorage.getItem('token')).Id))
 
 	const columns = [
-		{ id: '#', label: '#', align: 'left', },
 		{ id: 'Name', label: 'Name', align: 'left', },
 		{ id: 'Email', label: 'Email', align: 'left', },
 		{ id: 'Gender', label: 'Gender', align: 'left', },
@@ -280,7 +279,6 @@ export default function CRUDAccount() {
 										<>
 											{data.id !== userId && (
 												<TableRow key={data.id}>
-													<TableCell>{index + 1}</TableCell>
 													<TableCell>
 														{data.name}
 													</TableCell>

@@ -13,14 +13,14 @@ function Service1() {
         <section>
           <ol>
             <li>Choose a ring with a similar width and design to the one you intend to buy.</li>
-            <li>Use a ruler to measure the inside diameter of the ring.</li>
+            <li>Use a string to measure the diameter of your finger.</li>
             <li>Compare with the Ring Size Reference Chart.</li>
             <li>Adjust the ring size before placing an online order.</li>
           </ol>
         </section>
 
         <section>
-          <img src="https://file.hstatic.net/1000381168/file/cach-do-ni-size_c01f786c8b7f4f44ae64dedf1d4e5d3a.png" alt="Ring Size Chart" style={{
+          <img src="https://www.alexmakina.com/Data/EditorFiles/alex/Blog%20G%C3%B6rsel/Ring%20Size%20Measurement%20Using%20Thread%20or%20Floss.jpg" alt="Ring Size Chart" style={{
             maxWidth: '100%', // Make sure the image is responsive
             height: '300px',
             margin: '20px',

@@ -221,6 +221,9 @@ export default function Order() {
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}
+                <MenuItem key='Default' value={null}>
+                  <ListItemText primary='Default' />
+                </MenuItem>
               </Select>
             </FormControl>
             <TableContainer component={Paper} fullWidth>
