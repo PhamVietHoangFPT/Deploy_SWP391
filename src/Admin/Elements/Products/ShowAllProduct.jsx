@@ -38,7 +38,7 @@ export default function ShowAllProduct() {
   const role = localStorage.getItem('role')
 
   useEffect(() => {
-    if (role !== '1') {
+    if (role !== '1' && role !== '2') {
       navigate('/admin')
     }
   })

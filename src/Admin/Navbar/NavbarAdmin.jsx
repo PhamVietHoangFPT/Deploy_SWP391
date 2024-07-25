@@ -92,9 +92,26 @@ export default function NavbarAdmin() {
 					</Menu.Item >
 				)}
 				{role === '1' || role === '2' ? (
-					<Menu.Item style={paddingStyle} key="Account">
-						<Button onClick={goToAccount} sx={buttonStyle}>Account</Button>
-					</Menu.Item>
+					<>
+						<Menu.Item key="Category" style={paddingStyle}>
+							<Button onClick={goToCategory} sx={buttonStyle}>Category</Button>
+						</Menu.Item>
+						<Menu.Item key="Certificate" style={paddingStyle}>
+							<Button onClick={goToCertificate} sx={buttonStyle}>Certificate</Button>
+						</Menu.Item>
+						<Menu.Item key="Collection" style={paddingStyle}>
+							<Button onClick={goToCollections} sx={buttonStyle}>Collection</Button>
+						</Menu.Item>
+						<Menu.Item key="Diamond" style={paddingStyle}>
+							<Button onClick={goToDiamond} sx={buttonStyle}>Diamond</Button>
+						</Menu.Item>
+						<Menu.Item key="Diamond Case" style={paddingStyle}>
+							<Button onClick={goToDiamondCase} sx={buttonStyle}>Diamond Case</Button>
+						</Menu.Item>
+						<Menu.Item key="Product" style={paddingStyle}>
+							<Button onClick={goToProduct} sx={buttonStyle}>Product</Button>
+						</Menu.Item>
+					</>
 				) : null}
 				{role === '1' && (
 					<>

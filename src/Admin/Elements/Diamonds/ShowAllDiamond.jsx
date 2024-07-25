@@ -34,7 +34,7 @@ export default function ShowAllDiamond() {
     "Clarity", "Cut", "Price", "Quantity", "Status",
   ]
   useEffect(() => {
-    if (role !== '1') {
+    if (role !== '1' && role !== '2') {
       navigate('/admin')
     }
   })

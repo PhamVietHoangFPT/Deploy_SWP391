@@ -7,7 +7,7 @@ export default function Account() {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (role !== '1' && role !== '2') {
+		if (role !== '1') {
 			navigate('/admin')
 		}
 	})
